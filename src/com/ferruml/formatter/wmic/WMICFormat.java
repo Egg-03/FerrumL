@@ -1,4 +1,4 @@
-package com.egg.formatter.wmic;
+package com.ferruml.formatter.wmic;
 
 import java.io.BufferedReader;
 import java.io.IOException;
