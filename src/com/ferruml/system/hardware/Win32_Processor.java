@@ -7,7 +7,7 @@ import java.util.Map;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_Processor{
-	static String alias = "cpu"; //alias for Win32_Processor
+	static String alias = "Win32_Processor"; //alias for Win32_Processor
 	static String precedent = "DeviceID";
 	
 	private Win32_Processor() {
