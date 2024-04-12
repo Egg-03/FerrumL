@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -117,6 +118,8 @@ public class WMIC{
 	public static Map<String, String> getWhere(String WMIC_Class, String Precedent, String Antecedent, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException {
 		
 		String[] command = {"cmd","/c", "wmic path "+WMIC_Class+" where "+Precedent+"="+"\""+Antecedent+"\""+" get "+WMIC_Attributes+" /format:list"};
+		//TODO Remove this debug code later
+		System.out.println(Arrays.toString(command));
 		Process process = Runtime.getRuntime().exec(command);
 		try {
 			int exitCode = process.waitFor();
