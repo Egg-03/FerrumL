@@ -15,6 +15,100 @@ public class WMIC{
 		throw new IllegalStateException("Utility Class");
 	}
 	
+	public static List<String> getID(String WMIC_Class, String Key) throws IOException, IndexOutOfBoundsException{
+		String[] command = {"cmd","/c", "wmic path "+WMIC_Class+" get "+Key+" /format:list"};
+		Process process = Runtime.getRuntime().exec(command);
+		try {
+			int exitCode = process.waitFor();
+			if(exitCode!=0) {
+				BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+				String errorLine;
+     			List<String> errorList = new ArrayList<>();
+				
+				while((errorLine=error.readLine())!=null)
+					if(!errorLine.isBlank() || !errorLine.isEmpty())
+						errorList.add(errorLine);
+				
+				error.close();
+				
+				System.err.println("\n"+WMIC_Class+"-"+Key+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n");
+			}
+			
+		}catch (InterruptedException e) {
+			System.err.println("\n"+WMIC_Class+"-"+Key+"\n"+e.getMessage()+"\n\n");
+			Thread.currentThread().interrupt();
+			return Collections.emptyList();
+		}
+		
+		BufferedReader stream = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		
+		String currentLine;
+		
+		String value = "";
+		List<String> ID = new ArrayList<>();
+		
+		while((currentLine=stream.readLine())!=null)
+			if(!currentLine.isBlank() || !currentLine.isEmpty()) {
+				if(currentLine.contains("=")) {
+					value = currentLine.substring(currentLine.indexOf("=")+1).strip();
+					ID.add(value);
+				}
+				else {
+					value=value.concat(currentLine);
+					ID.add(ID.indexOf(ID.getLast()), value);
+				}
+			}
+		stream.close();
+		return ID;
+	}
+	
+	public static List<String> getIDWhere(String WMIC_Class, String determinantProperty, String determinantValue,  String extractProperty) throws IOException, IndexOutOfBoundsException{
+		String[] command = {"cmd","/c", "wmic path "+WMIC_Class+" where "+determinantProperty+"="+"\""+determinantValue+"\""+" get "+extractProperty+" /format:list"};
+		Process process = Runtime.getRuntime().exec(command);
+		try {
+			int exitCode = process.waitFor();
+			if(exitCode!=0) {
+				BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+				String errorLine;
+     			List<String> errorList = new ArrayList<>();
+				
+				while((errorLine=error.readLine())!=null)
+					if(!errorLine.isBlank() || !errorLine.isEmpty())
+						errorList.add(errorLine);
+				
+				error.close();
+				
+				System.err.println("\n"+WMIC_Class+"-"+extractProperty+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n");
+			}
+			
+		}catch (InterruptedException e) {
+			System.err.println("\n"+WMIC_Class+"-"+extractProperty+"\n"+e.getMessage()+"\n\n");
+			Thread.currentThread().interrupt();
+			return Collections.emptyList();
+		}
+		
+		BufferedReader stream = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		
+		String currentLine;
+		
+		String value = "";
+		List<String> ID = new ArrayList<>();
+		
+		while((currentLine=stream.readLine())!=null)
+			if(!currentLine.isBlank() || !currentLine.isEmpty()) {
+				if(currentLine.contains("=")) {
+					value = currentLine.substring(currentLine.indexOf("=")+1).strip();
+					ID.add(value);
+				}
+				else {
+					value=value.concat(currentLine);
+					ID.add(ID.indexOf(ID.getLast()), value);
+				}
+			}
+		stream.close();
+		return ID;
+	}
+	
 	public static Map<String, String> get(String WMIC_Class, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException {
 		
 		String[] command = {"cmd","/c", "wmic path "+WMIC_Class+" get "+WMIC_Attributes+" /format:list"};
@@ -68,56 +162,10 @@ public class WMIC{
 		return property;
 	}
 	
-	public static List<String> getID(String WMIC_Class, String Key) throws IOException, IndexOutOfBoundsException{
-		String[] command = {"cmd","/c", "wmic path "+WMIC_Class+" get "+Key+" /format:list"};
-		Process process = Runtime.getRuntime().exec(command);
-		try {
-			int exitCode = process.waitFor();
-			if(exitCode!=0) {
-				BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-				String errorLine;
-     			List<String> errorList = new ArrayList<>();
-				
-				while((errorLine=error.readLine())!=null)
-					if(!errorLine.isBlank() || !errorLine.isEmpty())
-						errorList.add(errorLine);
-				
-				error.close();
-				
-				System.err.println("\n"+WMIC_Class+"-"+Key+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n");
-			}
-			
-		}catch (InterruptedException e) {
-			System.err.println("\n"+WMIC_Class+"-"+Key+"\n"+e.getMessage()+"\n\n");
-			Thread.currentThread().interrupt();
-			return Collections.emptyList();
-		}
-		
-		BufferedReader stream = new BufferedReader(new InputStreamReader(process.getInputStream()));
-		
-		String currentLine;
-		
-		String value = "";
-		List<String> ID = new ArrayList<>();
-		
-		while((currentLine=stream.readLine())!=null)
-			if(!currentLine.isBlank() || !currentLine.isEmpty()) {
-				if(currentLine.contains("=")) {
-					value = currentLine.substring(currentLine.indexOf("=")+1).strip();
-					ID.add(value);
-				}
-				else {
-					value=value.concat(currentLine);
-					ID.add(ID.indexOf(ID.getLast()), value);
-				}
-			}
-		stream.close();
-		return ID;
-	}
 	
-	public static Map<String, String> getWhere(String WMIC_Class, String Precedent, String Antecedent, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException {
+	public static Map<String, String> getWhere(String WMIC_Class, String determinantProperty, String determinantValue, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException {
 		
-		String[] command = {"cmd","/c", "wmic path "+WMIC_Class+" where "+Precedent+"="+"\""+Antecedent+"\""+" get "+WMIC_Attributes+" /format:list"};
+		String[] command = {"cmd","/c", "wmic path "+WMIC_Class+" where "+determinantProperty+"="+"\""+determinantValue+"\""+" get "+WMIC_Attributes+" /format:list"};
 		//TODO Remove this debug code later
 		System.out.println(Arrays.toString(command));
 		Process process = Runtime.getRuntime().exec(command);
@@ -134,7 +182,7 @@ public class WMIC{
 				
 				error.close();
 				
-				System.err.println("\n"+WMIC_Class+"-"+Precedent+"-"+Antecedent+"-"+WMIC_Attributes+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n");
+				System.err.println("\n"+WMIC_Class+"-"+determinantProperty+"-"+determinantValue+"-"+WMIC_Attributes+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n");
 			}
 			
 		}catch (InterruptedException e) {
