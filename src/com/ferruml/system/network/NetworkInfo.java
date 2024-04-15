@@ -12,7 +12,7 @@ public class NetworkInfo {
 		throw new IllegalStateException("Utility Class");
 	}
 	
-	public static void NetworkAdapters() throws SocketException {
+	public static void networkAdapter() throws SocketException {
 		Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
         for (NetworkInterface netint : Collections.list(nets))
         	displayInterfaceInformation(netint);   

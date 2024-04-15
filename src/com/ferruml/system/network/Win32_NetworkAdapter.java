@@ -1,4 +1,4 @@
-package com.ferruml.system.hardware;
+package com.ferruml.system.network;
 
 import java.io.IOException;
 import java.util.List;
