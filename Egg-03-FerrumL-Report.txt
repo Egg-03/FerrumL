@@ -1,0 +1,300 @@
+----------------------HUMAN READABLE HARDWARE ID------------------------
+Egg-03/EGG-PC/AMD Ryzen 5 5600G with Radeon Graphics/178BFBFF00A50F00/B550M AORUS ELITE/2/3
+----------------------OS INFO------------------------
+BootDevice: \Device\HarddiskVolume3
+BuildNumber: 22631
+BuildType: Multiprocessor Free
+Caption: Microsoft Windows 11 Enterprise
+CSName: EGG-PC
+Distributed: FALSE
+InstallDate: 20231208134145.000000+330
+LastBootUpTime: 20240412183702.502663+330
+LocalDateTime: 20240416110130.964000+330
+Manufacturer: Microsoft Corporation
+MUILanguages: {"en-US"}
+NumberOfUsers: 2
+OSArchitecture: 64-bit
+PortableOperatingSystem: FALSE
+Primary: TRUE
+RegisteredUser: Windows User
+SerialNumber: 00328-90000-00000-AAOEM
+ServicePackMajorVersion: 0
+ServicePackMinorVersion: 0
+SystemDirectory: C:\Windows\system32
+SystemDrive: C:
+Version: 10.0.22631
+WindowsDirectory: C:\Windows
+----------------------USER INFO------------------------
+Current Username: Egg-03
+User Home Directory: C:\Users\Egg-03
+----------------------TIMEZONE------------------------
+Bias: 330
+Caption: (UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi
+StandardName: India Standard Time
+----------------------CPU INFO------------------------
+AddressWidth: 64
+Caption: AMD64 Family 25 Model 80 Stepping 0
+ExtClock: 100
+Family: 107
+L2CacheSize: 3072
+L3CacheSize: 16384
+Manufacturer: AuthenticAMD
+MaxClockSpeed: 3901
+Name: AMD Ryzen 5 5600G with Radeon Graphics
+NumberOfCores: 6
+ProcessorId: 178BFBFF00A50F00
+SocketDesignation: AM4
+Stepping: 0
+ThreadCount: 12
+Version: Model 0, Stepping 0
+VirtualizationFirmwareEnabled: TRUE
+
+----------------------CPU CACHE------------------------
+Associativity: 7
+DeviceID: Cache Memory 0
+InstalledSize: 384
+Purpose: L1 - Cache
+
+Associativity: 7
+DeviceID: Cache Memory 1
+InstalledSize: 3072
+Purpose: L2 - Cache
+
+Associativity: 8
+DeviceID: Cache Memory 2
+InstalledSize: 16384
+Purpose: L3 - Cache
+
+----------------------SPD------------------------
+BankLabel: P0 CHANNEL A
+Capacity: 8589934592
+ConfiguredClockSpeed: 3200
+DataWidth: 64
+DeviceLocator: DIMM 0
+FormFactor: 8
+Manufacturer: Unknown
+Model: 
+Name: Physical Memory
+OtherIdentifyingInfo: 
+PartNumber: CMK8GX4M1E3200C16
+SerialNumber: 00000000
+Speed: 3200
+Tag: Physical Memory 0
+
+BankLabel: P0 CHANNEL B
+Capacity: 8589934592
+ConfiguredClockSpeed: 3200
+DataWidth: 64
+DeviceLocator: DIMM 0
+FormFactor: 8
+Manufacturer: Unknown
+Model: 
+Name: Physical Memory
+OtherIdentifyingInfo: 
+PartNumber: CMK8GX4M1E3200C16
+SerialNumber: 00000000
+Speed: 3200
+Tag: Physical Memory 2
+
+----------------------VIDEO CONTROLLER------------------------
+AdapterDACType: Integrated RAMDAC
+AdapterRAM: 4293918720
+CurrentBitsPerPixel: 32
+CurrentHorizontalResolution: 1366
+CurrentRefreshRate: 75
+CurrentVerticalResolution: 768
+DriverDate: 20231129000000.000000-000
+DriverVersion: 31.0.15.4629
+MaxRefreshRate: 75
+MinRefreshRate: 50
+Name: NVIDIA GeForce GTX 1050 Ti
+PNPDeviceID: PCI\VEN_10DE&amp;DEV_1C82&amp;SUBSYS_A45419DA&amp;REV_A1\4&amp;1C5D7D4&amp;0&amp;0009
+VideoProcessor: NVIDIA GeForce GTX 1050 Ti
+----------------------MAINBOARD------------------------
+Manufacturer: Gigabyte Technology Co., Ltd.
+Model: 
+Product: B550M AORUS ELITE
+SerialNumber: Default string
+Version: x.x
+----------------------BIOS INFO------------------------
+Caption: FDd
+CurrentLanguage: en|US|iso8859-1
+Manufacturer: American Megatrends International, LLC.
+Name: FDd
+ReleaseDate: 20231225000000.000000+000
+SMBIOSBIOSVersion: FDd
+SMBIOSPresent: TRUE
+Status: OK
+Version: ALASKA - 1072009
+----------------------MAINBOARD I/O INFO------------------------
+ExternalReferenceDesignator: USB 3.2
+InternalReferenceDesignator: J1500
+Tag: Port Connector 0
+
+ExternalReferenceDesignator: USB 3.2
+InternalReferenceDesignator: J1501
+Tag: Port Connector 1
+
+ExternalReferenceDesignator: USB-C
+InternalReferenceDesignator: J1502
+Tag: Port Connector 2
+
+ExternalReferenceDesignator: USB 3.2
+InternalReferenceDesignator: J1506
+Tag: Port Connector 3
+
+ExternalReferenceDesignator: USB 3.2
+InternalReferenceDesignator: J1507
+Tag: Port Connector 4
+
+ExternalReferenceDesignator: USB 3.2
+InternalReferenceDesignator: J1301
+Tag: Port Connector 5
+
+ExternalReferenceDesignator: Network
+InternalReferenceDesignator: J1301
+Tag: Port Connector 6
+
+ExternalReferenceDesignator: iSATA
+InternalReferenceDesignator: J1704
+Tag: Port Connector 7
+
+ExternalReferenceDesignator: iSATA
+InternalReferenceDesignator: J1705
+Tag: Port Connector 8
+
+ExternalReferenceDesignator: iSATA
+InternalReferenceDesignator: J1700
+Tag: Port Connector 9
+
+ExternalReferenceDesignator: iSATA
+InternalReferenceDesignator: J1702
+Tag: Port Connector 10
+
+ExternalReferenceDesignator: iSATA
+InternalReferenceDesignator: J1703
+Tag: Port Connector 11
+
+ExternalReferenceDesignator: iSATA
+InternalReferenceDesignator: J1706
+Tag: Port Connector 12
+
+ExternalReferenceDesignator: HDMI
+InternalReferenceDesignator: J1100
+Tag: Port Connector 13
+
+ExternalReferenceDesignator: HDMI
+InternalReferenceDesignator: J1101
+Tag: Port Connector 14
+
+ExternalReferenceDesignator: DP
+InternalReferenceDesignator: J1102
+Tag: Port Connector 15
+
+ExternalReferenceDesignator: Front Audio
+InternalReferenceDesignator: J2100
+Tag: Port Connector 16
+
+ExternalReferenceDesignator: Audio Jack
+InternalReferenceDesignator: J2101
+Tag: Port Connector 17
+
+ExternalReferenceDesignator: HD Audio HDR
+InternalReferenceDesignator: J2102
+Tag: Port Connector 18
+
+----------------------NETWORK INFO------------------------
+Description: VirtualBox Host-Only Ethernet Adapter
+Installed: TRUE
+MACAddress: 0A:00:27:00:00:0D
+Name: VirtualBox Host-Only Ethernet Adapter
+NetConnectionID: Ethernet 3
+NetEnabled: TRUE
+PhysicalAdapter: TRUE
+PNPDeviceID: ROOT\NET\0000
+TimeOfLastReset: 20240412183702.502663+330
+
+Description: Realtek PCIe GbE Family Controller
+Installed: TRUE
+MACAddress: 74:56:3C:B7:4C:C8
+Name: Realtek PCIe GbE Family Controller #2
+NetConnectionID: Ethernet 2
+NetEnabled: TRUE
+PhysicalAdapter: TRUE
+PNPDeviceID: PCI\VEN_10EC&amp;DEV_8168&amp;SUBSYS_E0001458&amp;REV_15\C84CB73C5674000000
+TimeOfLastReset: 20240412183702.502663+330
+
+----------------------STORAGE INFO------------------------
+Caption: TOSHIBA MQ01ABD100
+FirmwareRevision: AX1P6E
+InterfaceType: IDE
+Model: TOSHIBA MQ01ABD100
+Partitions: 1
+PNPDeviceID: SCSI\DISK&amp;VEN_TOSHIBA&amp;PROD_MQ01ABD100\5&amp;BC4E48B&amp;0&amp;020000
+SerialNumber: Y6HAPKH1T
+Size: 1000202273280
+Status: OK
+
+Caption: TOSHIBA DT01ACA100
+FirmwareRevision: MS2OA750
+InterfaceType: IDE
+Model: TOSHIBA DT01ACA100
+Partitions: 1
+PNPDeviceID: SCSI\DISK&amp;VEN_TOSHIBA&amp;PROD_DT01ACA100\5&amp;BC4E48B&amp;0&amp;000000
+SerialNumber: 776VH3UNS
+Size: 1000202273280
+Status: OK
+
+Caption: Samsung SSD 980 500GB
+FirmwareRevision: 3B4QFXO7
+InterfaceType: SCSI
+Model: Samsung SSD 980 500GB
+Partitions: 3
+PNPDeviceID: SCSI\DISK&amp;VEN_NVME&amp;PROD_SAMSUNG_SSD_980\5&amp;15BB7AC4&amp;0&amp;000000
+SerialNumber: 0025_38D7_21A3_C3C1.
+Size: 500105249280
+Status: OK
+
+----------------------PRINTER INFO------------------------
+Capabilities: {4,2,5}
+CapabilityDescriptions: {"Copies","Color","Collate"}
+Default: TRUE
+DriverName: Canon MF3010 V4
+Hidden: FALSE
+HorizontalResolution: 600
+Local: TRUE
+Name: Canon MF3010
+Network: FALSE
+PortName: USB001
+PrintProcessor: winprint
+Shared: FALSE
+ShareName: 
+SpoolEnabled: TRUE
+VerticalResolution: 600
+WorkOffline: TRUE
+
+----------------------AUDIO INFO------------------------
+Caption: AMD High Definition Audio Device
+Manufacturer: Advanced Micro Devices
+PNPDeviceID: HDAUDIO\FUNC_01&amp;VEN_1002&amp;DEV_AA01&amp;SUBSYS_00AA0100&amp;REV_1007\5&amp;79ADABD&amp;0&amp;0001
+ProductName: AMD High Definition Audio Device
+Status: OK
+
+Caption: NVIDIA High Definition Audio
+Manufacturer: NVIDIA
+PNPDeviceID: HDAUDIO\FUNC_01&amp;VEN_10DE&amp;DEV_0080&amp;SUBSYS_19DAA454&amp;REV_1001\5&amp;1A2AB7EB&amp;0&amp;0001
+ProductName: NVIDIA High Definition Audio
+Status: OK
+
+Caption: USB Audio 2.0
+Manufacturer: Microsoft
+PNPDeviceID: USB\VID_3302&amp;PID_33C0&amp;MI_00\7&amp;2AB866C3&amp;0&amp;0000
+ProductName: USB Audio 2.0
+Status: OK
+
+Caption: High Definition Audio Device
+Manufacturer: Microsoft
+PNPDeviceID: HDAUDIO\FUNC_01&amp;VEN_10EC&amp;DEV_0897&amp;SUBSYS_1458A194&amp;REV_1004\5&amp;2D73551F&amp;0&amp;0001
+ProductName: High Definition Audio Device
+Status: OK
+

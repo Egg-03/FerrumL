@@ -4,11 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.ferruml.error.ErrorLog;
 
 public class WMIC{
 	private WMIC() {
@@ -31,7 +32,8 @@ public class WMIC{
 				
 				error.close();
 				
-				System.err.println("\n"+WMIC_Class+"-"+Key+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n");
+				ErrorLog cmdError = new ErrorLog();
+				cmdError.log("\n"+WMIC_Class+"-"+Key+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n\n");
 			}
 			
 		}catch (InterruptedException e) {
@@ -78,7 +80,8 @@ public class WMIC{
 				
 				error.close();
 				
-				System.err.println("\n"+WMIC_Class+"-"+extractProperty+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n");
+				ErrorLog cmdError = new ErrorLog();
+				cmdError.log("\n"+WMIC_Class+"-"+extractProperty+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n\n");
 			}
 			
 		}catch (InterruptedException e) {
@@ -127,7 +130,8 @@ public class WMIC{
 				
 				error.close();
 				
-				System.err.println("\n"+WMIC_Class+"-"+WMIC_Attributes+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n");
+				ErrorLog cmdError = new ErrorLog();
+				cmdError.log("\n"+WMIC_Class+"-"+WMIC_Attributes+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n\n");
 				return Collections.emptyMap();
 			}
 			
@@ -166,8 +170,6 @@ public class WMIC{
 	public static Map<String, String> getWhere(String WMIC_Class, String determinantProperty, String determinantValue, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException {
 		
 		String[] command = {"cmd","/c", "wmic path "+WMIC_Class+" where "+determinantProperty+"="+"\""+determinantValue+"\""+" get "+WMIC_Attributes+" /format:list"};
-		//TODO Remove this debug code later
-		System.out.println(Arrays.toString(command));
 		Process process = Runtime.getRuntime().exec(command);
 		try {
 			int exitCode = process.waitFor();
@@ -182,7 +184,8 @@ public class WMIC{
 				
 				error.close();
 				
-				System.err.println("\n"+WMIC_Class+"-"+determinantProperty+"-"+determinantValue+"-"+WMIC_Attributes+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n");
+				ErrorLog cmdError = new ErrorLog();
+				cmdError.log("\n"+WMIC_Class+"-"+determinantProperty+"-"+determinantValue+"-"+WMIC_Attributes+"\n"+errorList.toString()+"\nProcess Exited with code:"+exitCode+"\n\n");
 			}
 			
 		}catch (InterruptedException e) {
