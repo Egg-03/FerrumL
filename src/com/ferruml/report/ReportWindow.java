@@ -141,7 +141,10 @@ public class ReportWindow extends JFrame {
 		btnShowReport.addActionListener(e-> {
 				try {
 					String uname = User.getUsername();
-					Desktop.getDesktop().open(new File(uname+"-"+"FerrumL-Report.txt"));
+					if(detailedReport.isSelected())
+						Desktop.getDesktop().open(new File(uname+"-"+"FerrumL-Detailed-Report.txt"));
+					else if(summarizedReport.isSelected())
+						Desktop.getDesktop().open(new File(uname+"-"+"FerrumL-Summarized-Report.txt"));
 				} catch (IOException | NullPointerException | IllegalArgumentException | UnsupportedOperationException | SecurityException e0) {
 					errorDisplay.setText("SHOW REPORT ERROR: "+e0.getMessage());
 				}
