@@ -30,15 +30,15 @@ import com.ferruml.system.network.Win32_NetworkAdapter;
 import com.ferruml.system.operatingsystem.Win32_OperatingSystem;
 import com.ferruml.system.operatingsystem.Win32_TimeZone;
 
-public class AIOReportGeneration {
+public class SummarizedReportGeneration {
 	
-	private AIOReportGeneration() {
+	private SummarizedReportGeneration() {
 		throw new IllegalStateException("Utility Class");
 	}
 	
 	protected static void generate(JProgressBar progress, JLabel label, JButton button, JTextArea errorDisplay, JButton btnShowReport) {
 		new Thread(()-> {
-		try(FileWriter fos = new FileWriter(User.getUsername()+"-"+"FerrumL-Report.txt");){
+		try(FileWriter fos = new FileWriter(User.getUsername()+"-"+"FerrumL-Summarized-Report.txt");){
 			PrintWriter report = new PrintWriter(fos);
 			
 			button.setEnabled(false);

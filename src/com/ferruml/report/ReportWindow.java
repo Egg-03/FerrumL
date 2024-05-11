@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,6 +30,7 @@ import com.ferruml.error.ErrorLog;
 import com.ferruml.system.currentuser.User;
 
 import java.awt.Toolkit;
+import javax.swing.JRadioButton;
 
 public class ReportWindow extends JFrame {
 
@@ -120,6 +122,21 @@ public class ReportWindow extends JFrame {
 		errorDisplayScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		contentPane.add(errorDisplayScroll);
 		
+		JRadioButton detailedReport = new JRadioButton("Detailed");
+		detailedReport.setSelected(true);
+		detailedReport.setFont(new Font("SansSerif", Font.ITALIC, 11));
+		detailedReport.setBounds(139, 13, 73, 18);
+		contentPane.add(detailedReport);
+		
+		JRadioButton summarizedReport = new JRadioButton("Summarized");
+		summarizedReport.setFont(new Font("SansSerif", Font.ITALIC, 11));
+		summarizedReport.setBounds(213, 13, 93, 18);
+		contentPane.add(summarizedReport);
+		
+		ButtonGroup reportSelectionChoice = new ButtonGroup();
+		reportSelectionChoice.add(summarizedReport);
+		reportSelectionChoice.add(detailedReport);
+		
 		JButton btnShowReport = new JButton("Show Report");
 		btnShowReport.addActionListener(e-> {
 				try {
@@ -130,7 +147,7 @@ public class ReportWindow extends JFrame {
 				}
 		});
 		
-		btnShowReport.setBounds(224, 11, 117, 23);
+		btnShowReport.setBounds(307, 11, 117, 23);
 		contentPane.add(btnShowReport);
 		
 		JButton mainOperation = new JButton("Generate");
@@ -138,9 +155,12 @@ public class ReportWindow extends JFrame {
 				progressBar_1.setVisible(false);
 				progressBar.setVisible(true);
 				errorDisplay.setText("");
-				AIOReportGeneration.generate(progressBar, currentOperation, mainOperation, errorDisplay, btnShowReport);
+				if(detailedReport.isSelected())
+					DetailedReportGeneration.generate(progressBar, currentOperation, mainOperation, errorDisplay, btnShowReport);
+				else if(summarizedReport.isSelected())
+					SummarizedReportGeneration.generate(progressBar, currentOperation, mainOperation, errorDisplay, btnShowReport);
 		});
-		mainOperation.setBounds(95, 11, 117, 23);
+		mainOperation.setBounds(10, 11, 117, 23);
 		contentPane.add(mainOperation);	
 		
 	}
