@@ -19,7 +19,7 @@ public class Win32_Processor{
 	}
 	
 	public static Map<String, String> getCurrentProcessor(String currentProcessorID) throws IOException, IndexOutOfBoundsException {
-		String attributes = "Name, NumberOfCores, ThreadCount, Manufacturer, AddressWidth, L2CacheSize, L3CacheSize, MaxClockSpeed, ExtClock, SocketDesignation, Version, Caption, Family, Stepping, VirtualizationFirmwareEnabled, ProcessorID";
+		String attributes = "Name, NumberOfCores, NumberOfLogicalProcessors, ThreadCount, Manufacturer, AddressWidth, L2CacheSize, L3CacheSize, MaxClockSpeed, ExtClock, SocketDesignation, Version, Caption, Family, Stepping, VirtualizationFirmwareEnabled, ProcessorID";
 		return WMIC.getWhere(alias, precedent, currentProcessorID, attributes);
 	}
 }
