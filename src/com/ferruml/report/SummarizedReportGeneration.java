@@ -14,10 +14,9 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
+import com.ferruml.formatter.wmic.WMIC;
 import com.ferruml.system.currentuser.User;
 import com.ferruml.system.hardware.HWID;
-import com.ferruml.system.hardware.Win32_BIOS;
-import com.ferruml.system.hardware.Win32_Baseboard;
 import com.ferruml.system.hardware.Win32_CacheMemory;
 import com.ferruml.system.hardware.Win32_DiskDrive;
 import com.ferruml.system.hardware.Win32_PhysicalMemory;
@@ -30,15 +29,15 @@ import com.ferruml.system.network.Win32_NetworkAdapter;
 import com.ferruml.system.operatingsystem.Win32_OperatingSystem;
 import com.ferruml.system.operatingsystem.Win32_TimeZone;
 
-public class AIOReportGeneration {
+public class SummarizedReportGeneration {
 	
-	private AIOReportGeneration() {
+	private SummarizedReportGeneration() {
 		throw new IllegalStateException("Utility Class");
 	}
 	
 	protected static void generate(JProgressBar progress, JLabel label, JButton button, JTextArea errorDisplay, JButton btnShowReport) {
 		new Thread(()-> {
-		try(FileWriter fos = new FileWriter(User.getUsername()+"-"+"FerrumL-Report.txt");){
+		try(FileWriter fos = new FileWriter(User.getUsername()+"-"+"FerrumL-Summarized-Report.txt");){
 			PrintWriter report = new PrintWriter(fos);
 			
 			button.setEnabled(false);
@@ -153,7 +152,7 @@ public class AIOReportGeneration {
 		try {
 			deviceIDs = Win32_SoundDevice.getSoundDeviceID();	
 			for(String currentID : deviceIDs) {
-				currentAudio = Win32_SoundDevice.getCurrentAudioDevice(currentID);
+				currentAudio = WMIC.getWhere("Win32_SoundDevice", "Caption", currentID, "Caption, Manufacturer, Status"); //DeviceID does not work
 				for(Map.Entry<String, String> entry: currentAudio.entrySet())
 					report.println(entry.getKey()+": "+entry.getValue());
 				report.println();
@@ -176,7 +175,7 @@ public class AIOReportGeneration {
 		try {
 		deviceIDs = Win32_Printer.getDeviceIDList();
 		for(String currentID : deviceIDs) {
-			currentPrinter = Win32_Printer.getCurrentPrinter(currentID);
+			currentPrinter = WMIC.getWhere("Win32_Printer", "DeviceID", currentID, "Name, HorizontalResolution, VerticalResolution, DriverName, Local, Network");
 			for(Map.Entry<String, String> entry: currentPrinter.entrySet())
 				report.println(entry.getKey()+": "+entry.getValue());
 			report.println();
@@ -199,7 +198,7 @@ public class AIOReportGeneration {
 		try {
 			diskID = Win32_DiskDrive.getDriveID();
 			for (String id : diskID) {
-				disk = Win32_DiskDrive.getDrive(id);
+				disk = WMIC.getWhere("Win32_DiskDrive", "Caption", id, "Model, Size, Status");
 				for (Map.Entry<String, String> entry : disk.entrySet())
 					report.println(entry.getKey() + ": " + entry.getValue());
 				report.println();
@@ -221,7 +220,7 @@ public class AIOReportGeneration {
 		try {
 			deviceIDs = Win32_NetworkAdapter.getAdapterID();
 			for (String currentID : deviceIDs) {
-				networkAdapter = Win32_NetworkAdapter.getNetworkAdapters(currentID);
+				networkAdapter = WMIC.getWhere("Win32_NetworkAdapter", "DeviceID", currentID, "Name, MACAddress, NetConnectionID");
 				
 				for (Map.Entry<String, String> entry : networkAdapter.entrySet())
 					report.println(entry.getKey() + ": " + entry.getValue());
@@ -245,10 +244,9 @@ public class AIOReportGeneration {
 		try {
 			portID = Win32_PortConnector.getBaseboardPortID();
 			for (String id : portID) {
-				ports = Win32_PortConnector.getBaseboardPorts(id);
+				ports = WMIC.getWhere("Win32_PortConnector", "Tag", id, "ExternalReferenceDesignator");
 				for (Map.Entry<String, String> port : ports.entrySet())
-					report.println(port.getKey() + ": " + port.getValue());
-				report.println();
+					report.println(port.getValue());
 			}
 			if(ports.isEmpty())
 				errorDisplay.append("I/O Info: Unavailable\n");
@@ -263,7 +261,7 @@ public class AIOReportGeneration {
 	private static void reportBIOS(PrintWriter report, JTextArea errorDisplay) {
 		report.println("----------------------BIOS INFO------------------------");
 		try {
-			Map<String, String> BIOS = Win32_BIOS.getPrimaryBIOS();
+			Map<String, String> BIOS = WMIC.getWhere("Win32_BIOS", "PrimaryBIOS", "True", "Name, Manufacturer, ReleaseDate");
 			for (Map.Entry<String, String> entry : BIOS.entrySet())
 				report.println(entry.getKey() + ": " + entry.getValue());
 			if(BIOS.isEmpty())
@@ -279,7 +277,7 @@ public class AIOReportGeneration {
 	private static void reportMotherboard(PrintWriter report, JTextArea errorDisplay) {
 		report.println("----------------------MAINBOARD------------------------");
 		try {
-			Map<String, String> motherboard = Win32_Baseboard.getMotherboard();
+			Map<String, String> motherboard = WMIC.get("Win32_Baseboard", "Manufacturer, Model, Product");
 			for (Map.Entry<String, String> entry : motherboard.entrySet())
 				report.println(entry.getKey() + ": " + entry.getValue());
 			
@@ -301,7 +299,7 @@ public class AIOReportGeneration {
 		try {
 			gpuIDs = Win32_VideoController.getGPUID();
 			for (String currentID : gpuIDs) {
-				currentGPU = Win32_VideoController.getGPU(currentID);
+				currentGPU = WMIC.getWhere("Win32_VideoController", "DeviceID", currentID, "Name, VideoProcessor, DriverVersion, AdapterRAM, CurrentHorizontalResolution, CurrentVerticalResolution");
 				for (Map.Entry<String, String> entry : currentGPU.entrySet())
 					report.println(entry.getKey() + ": " + entry.getValue());
 			}
@@ -323,7 +321,7 @@ public class AIOReportGeneration {
 		try {
 			memoryID=Win32_PhysicalMemory.getTag();
 			for (String id : memoryID) {
-				memory = Win32_PhysicalMemory.getMemory(id);
+				memory = WMIC.getWhere("Win32_PhysicalMemory", "Tag", id, "Manufacturer, Model, PartNumber, Capacity, Speed");
 				for (Map.Entry<String, String> entry : memory.entrySet())
 					report.println(entry.getKey() + ": " + entry.getValue());
 				report.println();
@@ -347,7 +345,7 @@ public class AIOReportGeneration {
 			cacheIDs = Win32_CacheMemory.getCacheID();
 		
 			for(String currentCacheID : cacheIDs) {
-				cache = Win32_CacheMemory.getCPUCache(currentCacheID);
+				cache = WMIC.getWhere("Win32_CacheMemory", "DeviceID", currentCacheID, "Purpose, InstalledSize");
 				for(Map.Entry<String, String> entry: cache.entrySet())
 					report.println(entry.getKey()+": "+entry.getValue());
 				report.println();
@@ -370,7 +368,7 @@ public class AIOReportGeneration {
 		try {
 			oslist = Win32_OperatingSystem.getOSList();
 			for (String currentOS : oslist) {
-				osinfo = Win32_OperatingSystem.getOSInfo(currentOS);
+				osinfo = WMIC.getWhere("Win32_OperatingSystem", "Caption", currentOS, "Name, Caption, InstallDate, CSName, BuildNumber, OSArchitecture, WindowsDirectory");
 				for (Map.Entry<String, String> entry : osinfo.entrySet())
 					report.println(entry.getKey() + ": " + entry.getValue());
 			}
@@ -392,7 +390,7 @@ public class AIOReportGeneration {
 		try {
 			deviceIDs = Win32_Processor.getProcessorList();
 			for (String currentID : deviceIDs) {
-				currentCPU = Win32_Processor.getCurrentProcessor(currentID);
+				currentCPU = WMIC.getWhere("Win32_Processor", "DeviceID", currentID, "Name, NumberOfCores, ThreadCount, NumberOfLogicalProcessors, Manufacturer");
 				for (Map.Entry<String, String> entry : currentCPU.entrySet())
 					report.println(entry.getKey() + ": " + entry.getValue());
 				report.println();
