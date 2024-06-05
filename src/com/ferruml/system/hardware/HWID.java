@@ -9,7 +9,7 @@ import com.ferruml.formatter.wmic.WMIC;
 import com.ferruml.system.currentuser.User;
 
 public class HWID {
-	private HWID() {
+	protected HWID() {
 		throw new IllegalStateException("Utility Class");
 	}
 	
