@@ -1,47 +1,54 @@
 package com.ferruml.system.hardware;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import com.ferruml.formatter.wmic.WMIC;
-import com.ferruml.system.currentuser.User;
 
 public class HWID {
 	protected HWID() {
 		throw new IllegalStateException("Utility Class");
 	}
 	
-	public static String getHardwareID() throws ExecutionException, InterruptedException {
+	private static String getDiskSerials() throws IndexOutOfBoundsException, IOException {
+		List<String> ideInterface = WMIC.getIDWhere("Win32_DiskDrive", "InterfaceType", "IDE", "SerialNumber");
+		List<String> scsiInterface = WMIC.getIDWhere("Win32_DiskDrive", "InterfaceType", "SCSI", "SerialNumber");
 		
+		StringBuilder ideDrives = new StringBuilder("");
+		StringBuilder scsiDrives = new StringBuilder("");
+		
+		for(String ide:ideInterface)
+			ideDrives.append(ide);
+		
+		for(String scsi:scsiInterface)
+			scsiDrives.append(scsi);
+		
+		return ideDrives.toString()+scsiDrives.toString();
+	}
+	
+	public static String getHardwareID() throws ExecutionException, InterruptedException {
 		String cpuName = "";
 		String cpuId = "";
 		String motherBoardName = "";
-		String deviceName = "";
-		String userName = "";
-		int countRAM = -1;
-		int countStorage = -1;
+		String driveId = "";
 		
-		try(ExecutorService EXEC = Executors.newFixedThreadPool(7)) {
+		try (ExecutorService EXEC = Executors.newFixedThreadPool(4);){
 			Future<String> cpuNameTask = EXEC.submit(()-> WMIC.get("Win32_Processor", "Name").get("Name"));
 			Future<String> cpuIdTask = EXEC.submit(()-> WMIC.get("Win32_Processor", "ProcessorId").get("ProcessorId"));
 			Future<String> motherBoardNameTask = EXEC.submit(()-> WMIC.get("Win32_BaseBoard", "Product").get("Product"));
-			Future<String> deviceNameTask = EXEC.submit(()->WMIC.get("Win32_OperatingSystem", "CSName").get("CSName"));
-			Future<String> userNameTask = EXEC.submit(User::getUsername);
-			Future<Integer> countRAMTask = EXEC.submit(()-> Win32_PhysicalMemory.getTag().size());
-			Future<Integer> countStorageTask = EXEC.submit(()-> Win32_DiskDrive.getDriveID().size());
+			Future<String> driveIdTask = EXEC.submit(HWID::getDiskSerials);
 			
 			cpuName = cpuNameTask.get();
 			cpuId = cpuIdTask.get();
 			motherBoardName = motherBoardNameTask.get();
-			deviceName = deviceNameTask.get();
-			userName = userNameTask.get();
-			countRAM = countRAMTask.get();
-			countStorage = countStorageTask.get();
-		}
+			driveId = driveIdTask.get();
+			}
 		
-		return userName+"/"+deviceName+"/"+cpuName+"/"+cpuId+"/"+motherBoardName+"/"+countRAM+"/"+countStorage;
+		return cpuName+"/"+cpuId+"/"+motherBoardName+"/"+driveId;
 	}
 }
 
