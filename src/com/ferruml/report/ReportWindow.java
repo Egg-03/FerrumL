@@ -73,7 +73,7 @@ public class ReportWindow extends JFrame {
 	 */
 	private ReportWindow() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReportWindow.class.getResource("/resources/ferrum_legacy-8.png")));
-		setTitle("FerrumL Report Tool v1.2.4");
+		setTitle("FerrumL Report Tool v1.2.5");
 		setResizable(false);
 		setAlwaysOnTop(false);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -18,10 +18,10 @@ public class Win32_DiskDrive {
 	 * I couldn't get the real IDs to work with WMIC and I don't know how LinkedHashMap will react to duplicates
 	 * It shouldn't be a problem since the map stores only one drive info at a time*/
 	public static List<String> getDriveID() throws IOException, IndexOutOfBoundsException{
-		return WMIC.getID(classname, "Caption");
+		return WMIC.getID(classname, "Index"); //DeviceID does not work, but Index does
 	}
 	
 	public static Map<String, String> getDrive(String driveID) throws IOException, IndexOutOfBoundsException{
-		return WMIC.getWhere(classname, "Caption", driveID, attributes);
+		return WMIC.getWhere(classname, "Index", driveID, attributes);
 	}
 }
