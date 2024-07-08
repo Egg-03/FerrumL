@@ -73,7 +73,7 @@ public class ReportWindow extends JFrame {
 	 */
 	private ReportWindow() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReportWindow.class.getResource("/resources/ferrum_legacy-8.png")));
-		setTitle("FerrumL Report Tool v1.2.5");
+		setTitle("FerrumL Report Tool v1.2.6");
 		setResizable(false);
 		setAlwaysOnTop(false);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -90,11 +90,11 @@ public class ReportWindow extends JFrame {
 		progressBar.setVisible(false);
 		contentPane.add(progressBar);
 		
-		JProgressBar progressBar_1 = new JProgressBar();
-		progressBar_1.setIndeterminate(true);
-		progressBar_1.setBounds(10, 72, 414, 14);
-		progressBar_1.setVisible(true);
-		contentPane.add(progressBar_1);
+		JProgressBar progressBar1 = new JProgressBar();
+		progressBar1.setIndeterminate(true);
+		progressBar1.setBounds(10, 72, 414, 14);
+		progressBar1.setVisible(true);
+		contentPane.add(progressBar1);
 		
 		JLabel currentOperation = new JLabel("READY");
 		currentOperation.setHorizontalAlignment(SwingConstants.CENTER);
@@ -155,7 +155,7 @@ public class ReportWindow extends JFrame {
 		
 		JButton mainOperation = new JButton("Generate");
 		mainOperation.addActionListener(e-> {
-				progressBar_1.setVisible(false);
+				progressBar1.setVisible(false);
 				progressBar.setVisible(true);
 				errorDisplay.setText("");
 				if(detailedReport.isSelected())

@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.ferruml.system.network.NetworkInfo;
 import com.ferruml.system.network.Win32_NetworkAdapter;
 
 public class Network {
@@ -22,7 +21,6 @@ public class Network {
 					System.out.println(entry.getKey()+": "+entry.getValue());
 				System.out.println();
 			}
-			NetworkInfo.networkAdapter();
 			
 		}catch(IOException | IndexOutOfBoundsException e) {
 			System.err.println(e.getMessage());
