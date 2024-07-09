@@ -7,7 +7,7 @@ import java.util.Map;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_Printer {
-	private static String classname = "Win32_Printer";
+	private static String classname = "Printer";
 	private static String attributes = "Name, HorizontalResolution, VerticalResolution, Capabilities, CapabilityDescriptions, Default, DriverName, Hidden, Local, Network, PortName, PrintProcessor, Shared, ShareName, SpoolEnabled, WorkOffline";
 	private Win32_Printer() {
 		throw new IllegalStateException("Utility Class");

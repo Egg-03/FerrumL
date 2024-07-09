@@ -7,7 +7,7 @@ import java.util.Map;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_CacheMemory {
-	private static String classname = "Win32_CacheMemory";
+	private static String classname = "MEMCACHE";
 	private Win32_CacheMemory() {
 		throw new IllegalStateException("Utility Class");
 	}

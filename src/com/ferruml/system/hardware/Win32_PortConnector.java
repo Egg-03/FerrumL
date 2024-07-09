@@ -8,7 +8,7 @@ import com.ferruml.formatter.wmic.WMIC;
 
 //represents a set of all the ports available in a motherboard
 public class Win32_PortConnector {
-	private static String classname = "Win32_PortConnector";
+	private static String classname = "PortConnector";
 	private static String attributes = "Tag, ExternalReferenceDesignator, InternalReferenceDesignator";
 	private Win32_PortConnector() {
 		throw new IllegalStateException("Utility Class");

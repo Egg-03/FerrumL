@@ -11,15 +11,15 @@ import java.util.Map;
 
 import com.ferruml.error.ErrorLog;
 
-public class WMIC{
+public class WMICPath{
 	private static String systemDriveLetter = System.getenv("SystemDrive").toLowerCase().substring(0, 1);
 	
-	private WMIC() {
+	private WMICPath() {
 		throw new IllegalStateException("Utility Class");
 	}
 	
 	public static List<String> getID(String WMIC_Class, String Key) throws IOException, IndexOutOfBoundsException{
-		String[] command = {"cmd","/"+systemDriveLetter, "wmic "+WMIC_Class+" get "+Key+" /format:list"};
+		String[] command = {"cmd","/"+systemDriveLetter, "wmic path "+WMIC_Class+" get "+Key+" /format:list"};
 		Process process = Runtime.getRuntime().exec(command);
 		try {
 			int exitCode = process.waitFor();
@@ -67,7 +67,7 @@ public class WMIC{
 	}
 	
 	public static List<String> getIDWhere(String WMIC_Class, String determinantProperty, String determinantValue,  String extractProperty) throws IOException, IndexOutOfBoundsException{
-		String[] command = {"cmd","/"+systemDriveLetter, "wmic "+WMIC_Class+" where "+determinantProperty+"="+"\""+determinantValue+"\""+" get "+extractProperty+" /format:list"};
+		String[] command = {"cmd","/"+systemDriveLetter, "wmic path "+WMIC_Class+" where "+determinantProperty+"="+"\""+determinantValue+"\""+" get "+extractProperty+" /format:list"};
 		Process process = Runtime.getRuntime().exec(command);
 		try {
 			int exitCode = process.waitFor();
@@ -116,7 +116,7 @@ public class WMIC{
 	
 	public static Map<String, String> get(String WMIC_Class, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException {
 		
-		String[] command = {"cmd","/"+systemDriveLetter, "wmic "+WMIC_Class+" get "+WMIC_Attributes+" /format:list"};
+		String[] command = {"cmd","/"+systemDriveLetter, "wmic path "+WMIC_Class+" get "+WMIC_Attributes+" /format:list"};
 		Process process = Runtime.getRuntime().exec(command);
 		
 		try {
@@ -171,7 +171,7 @@ public class WMIC{
 	
 	public static Map<String, String> getWhere(String WMIC_Class, String determinantProperty, String determinantValue, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException {
 		
-		String[] command = {"cmd","/"+systemDriveLetter, "wmic "+WMIC_Class+" where "+determinantProperty+"="+"\""+determinantValue+"\""+" get "+WMIC_Attributes+" /format:list"};
+		String[] command = {"cmd","/"+systemDriveLetter, "wmic path "+WMIC_Class+" where "+determinantProperty+"="+"\""+determinantValue+"\""+" get "+WMIC_Attributes+" /format:list"};
 		Process process = Runtime.getRuntime().exec(command);
 		try {
 			int exitCode = process.waitFor();

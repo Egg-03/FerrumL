@@ -7,7 +7,7 @@ import java.util.Map;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_DiskDrive {
-	private static String classname = "Win32_DiskDrive";
+	private static String classname = "DiskDrive";
 	private static String attributes = "Caption, Model, Size, FirmwareRevision, SerialNumber, Partitions, Status, InterfaceType, PNPDeviceID";
 	private Win32_DiskDrive() {
 		throw new IllegalStateException("Utility Class");

@@ -7,7 +7,7 @@ import java.util.Map;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_NetworkAdapter {
-	private static String classname = "Win32_NetworkAdapter";
+	private static String classname = "NIC";
 	private static String attributes = "Name, Description, PNPDeviceID, MACAddress, Installed, NetEnabled, NetConnectionID, PhysicalAdapter, TimeOfLastReset";
 	private Win32_NetworkAdapter() {
 		throw new IllegalStateException("Utility Class");

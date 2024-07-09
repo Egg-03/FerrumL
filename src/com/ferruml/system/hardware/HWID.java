@@ -15,8 +15,8 @@ public class HWID {
 	}
 	
 	private static String getDiskSerials() throws IndexOutOfBoundsException, IOException {
-		List<String> ideInterface = WMIC.getIDWhere("Win32_DiskDrive", "InterfaceType", "IDE", "SerialNumber");
-		List<String> scsiInterface = WMIC.getIDWhere("Win32_DiskDrive", "InterfaceType", "SCSI", "SerialNumber");
+		List<String> ideInterface = WMIC.getIDWhere("DiskDrive", "InterfaceType", "IDE", "SerialNumber");
+		List<String> scsiInterface = WMIC.getIDWhere("DiskDrive", "InterfaceType", "SCSI", "SerialNumber");
 		
 		StringBuilder ideDrives = new StringBuilder("");
 		StringBuilder scsiDrives = new StringBuilder("");
@@ -37,9 +37,9 @@ public class HWID {
 		String driveId = "";
 		
 		try (ExecutorService EXEC = Executors.newFixedThreadPool(4);){
-			Future<String> cpuNameTask = EXEC.submit(()-> WMIC.get("Win32_Processor", "Name").get("Name"));
-			Future<String> cpuIdTask = EXEC.submit(()-> WMIC.get("Win32_Processor", "ProcessorId").get("ProcessorId"));
-			Future<String> motherBoardNameTask = EXEC.submit(()-> WMIC.get("Win32_BaseBoard", "Product").get("Product"));
+			Future<String> cpuNameTask = EXEC.submit(()-> WMIC.get("CPU", "Name").get("Name"));
+			Future<String> cpuIdTask = EXEC.submit(()-> WMIC.get("CPU", "ProcessorId").get("ProcessorId"));
+			Future<String> motherBoardNameTask = EXEC.submit(()-> WMIC.get("BaseBoard", "Product").get("Product"));
 			Future<String> driveIdTask = EXEC.submit(HWID::getDiskSerials);
 			
 			cpuName = cpuNameTask.get();

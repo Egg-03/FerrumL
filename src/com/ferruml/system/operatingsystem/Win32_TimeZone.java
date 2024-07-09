@@ -6,7 +6,7 @@ import java.util.Map;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_TimeZone {
-	private static String classname = "Win32_TimeZone";
+	private static String classname = "TimeZone";
 	private static String attributes = "Caption, Bias, StandardName";
 	
 	private Win32_TimeZone() {

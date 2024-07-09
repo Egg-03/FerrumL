@@ -6,7 +6,7 @@ import java.util.Map;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_BIOS {
-	private static String classname = "Win32_BIOS";
+	private static String classname = "BIOS";
 	private static String attributes = "Name, Caption, Manufacturer, ReleaseDate, SMBIOSPResent, Status, Version, CurrentLanguage, SMBIOSBIOSVersion";
 	private Win32_BIOS() {
 		throw new IllegalStateException("Utility Class");

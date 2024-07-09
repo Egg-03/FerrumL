@@ -6,7 +6,7 @@ import java.util.Map;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_Baseboard {
-	private static String classname = "Win32_Baseboard";
+	private static String classname = "BaseBoard";
 	private static String attributes = "Manufacturer, Model, Product, SerialNumber, Version";
 	private Win32_Baseboard() {
 		throw new IllegalStateException("Utility Class");

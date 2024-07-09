@@ -7,7 +7,7 @@ import java.util.Map;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_SoundDevice {
-	private static String classname = "Win32_SoundDevice";
+	private static String classname = "SoundDev";
 	private static String attributes = "ProductName, Status, Caption, PNPDeviceID, Manufacturer";
 	private Win32_SoundDevice() {
 		throw new IllegalStateException("Utility Class");

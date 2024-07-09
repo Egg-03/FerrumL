@@ -7,7 +7,7 @@ import java.util.Map;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_PhysicalMemory {
-	private static String classname = "Win32_PhysicalMemory";
+	private static String classname = "MemoryChip";
 	private static String attributes = "Name, Manufacturer, Model, OtherIdentifyingInfo, PartNumber, Tag, FormFactor, BankLabel, Capacity, DataWidth, Speed, ConfiguredClockSpeed, DeviceLocator, SerialNumber";
 	private Win32_PhysicalMemory() {
 		throw new IllegalStateException("Utility Class");
