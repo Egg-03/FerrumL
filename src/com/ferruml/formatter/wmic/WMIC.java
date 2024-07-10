@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,14 +13,15 @@ import java.util.Map;
 import com.ferruml.error.ErrorLog;
 
 public class WMIC{
-	private static String systemDriveLetter = System.getenv("SystemDrive").toLowerCase().substring(0, 1);
 	
 	private WMIC() {
 		throw new IllegalStateException("Utility Class");
 	}
 	
 	public static List<String> getID(String WMIC_Class, String Key) throws IOException, IndexOutOfBoundsException{
-		String[] command = {"cmd","/"+systemDriveLetter, "wmic path "+WMIC_Class+" get "+Key+" /format:list"};
+		String[] command = {"powershell.exe", "Get-WmiObject "+WMIC_Class+" | Select-Object "+Key+" | Format-List"};
+		//TODO remove the println command
+		System.out.println(Arrays.toString(command));
 		Process process = Runtime.getRuntime().exec(command);
 		try {
 			int exitCode = process.waitFor();
@@ -53,8 +55,8 @@ public class WMIC{
 		
 		while((currentLine=stream.readLine())!=null)
 			if(!currentLine.isBlank() || !currentLine.isEmpty()) {
-				if(currentLine.contains("=")) {
-					value = currentLine.substring(currentLine.indexOf("=")+1).strip();
+				if(currentLine.contains(":")) {
+					value = currentLine.substring(currentLine.indexOf(":")+1).strip();
 					ID.add(value);
 				}
 				else {
@@ -67,7 +69,9 @@ public class WMIC{
 	}
 	
 	public static List<String> getIDWhere(String WMIC_Class, String determinantProperty, String determinantValue,  String extractProperty) throws IOException, IndexOutOfBoundsException{
-		String[] command = {"cmd","/"+systemDriveLetter, "wmic path "+WMIC_Class+" where "+determinantProperty+"="+"\""+determinantValue+"\""+" get "+extractProperty+" /format:list"};
+		String[] command = {"powershell.exe", "Get-WmiObject "+WMIC_Class+" | Where-Object {$_."+determinantProperty+" -eq "+"'"+determinantValue+"'}"+" | Select-Object "+extractProperty+" | Format-List"};
+		//TODO remove the println command
+		System.out.println(Arrays.toString(command));
 		Process process = Runtime.getRuntime().exec(command);
 		try {
 			int exitCode = process.waitFor();
@@ -101,8 +105,8 @@ public class WMIC{
 		
 		while((currentLine=stream.readLine())!=null)
 			if(!currentLine.isBlank() || !currentLine.isEmpty()) {
-				if(currentLine.contains("=")) {
-					value = currentLine.substring(currentLine.indexOf("=")+1).strip();
+				if(currentLine.contains(":")) {
+					value = currentLine.substring(currentLine.indexOf(":")+1).strip();
 					ID.add(value);
 				}
 				else {
@@ -116,7 +120,9 @@ public class WMIC{
 	
 	public static Map<String, String> get(String WMIC_Class, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException {
 		
-		String[] command = {"cmd","/"+systemDriveLetter, "wmic path "+WMIC_Class+" get "+WMIC_Attributes+" /format:list"};
+		String[] command = {"powershell.exe", "Get-WmiObject "+WMIC_Class+" | Select-Object "+WMIC_Attributes+" | Format-List"};
+		//TODO remove the println command
+		System.out.println(Arrays.toString(command));
 		Process process = Runtime.getRuntime().exec(command);
 		
 		try {
@@ -154,9 +160,9 @@ public class WMIC{
 		
 		while((currentLine=br.readLine())!=null)
 			if(!currentLine.isBlank() || !currentLine.isEmpty()) {
-				if(currentLine.contains("=")) {
-					key = currentLine.substring(0, currentLine.indexOf("=")).strip();
-					value = currentLine.substring(currentLine.indexOf("=")+1).strip();
+				if(currentLine.contains(":")) {
+					key = currentLine.substring(0, currentLine.indexOf(":")).strip();
+					value = currentLine.substring(currentLine.indexOf(":")+1).strip();
 					property.put(key, value);
 				}
 				else {
@@ -171,7 +177,9 @@ public class WMIC{
 	
 	public static Map<String, String> getWhere(String WMIC_Class, String determinantProperty, String determinantValue, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException {
 		
-		String[] command = {"cmd","/"+systemDriveLetter, "wmic path "+WMIC_Class+" where "+determinantProperty+"="+"\""+determinantValue+"\""+" get "+WMIC_Attributes+" /format:list"};
+		String[] command = {"powershell.exe", "Get-WmiObject "+WMIC_Class+" | Where-Object {$_."+determinantProperty+" -eq "+"'"+determinantValue+"'}"+" | Select-Object "+WMIC_Attributes+" | Format-List"};
+		//TODO remove the println command
+				System.out.println(Arrays.toString(command));
 		Process process = Runtime.getRuntime().exec(command);
 		try {
 			int exitCode = process.waitFor();
@@ -206,9 +214,9 @@ public class WMIC{
 		
 		while((currentLine=stream.readLine())!=null)
 			if(!currentLine.isBlank() || !currentLine.isEmpty()) {
-				if(currentLine.contains("=")) {
-					key = currentLine.substring(0, currentLine.indexOf("=")).strip();
-					value = currentLine.substring(currentLine.indexOf("=")+1).strip();
+				if(currentLine.contains(":")) {
+					key = currentLine.substring(0, currentLine.indexOf(":")).strip();
+					value = currentLine.substring(currentLine.indexOf(":")+1).strip();
 					property.put(key, value);
 				}
 				else {
