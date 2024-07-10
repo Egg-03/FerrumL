@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import com.ferruml.formatter.wmic.WMIC;
+import com.ferruml.formatter.wmi.WMIC;
 
 public class HWID {
 	protected HWID() {

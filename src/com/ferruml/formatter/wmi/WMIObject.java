@@ -1,10 +1,9 @@
-package com.ferruml.formatter.wmic;
+package com.ferruml.formatter.wmi;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,16 +11,14 @@ import java.util.Map;
 
 import com.ferruml.error.ErrorLog;
 
-public class WMIC{
+public class WMIObject{
 	
-	private WMIC() {
+	private WMIObject() {
 		throw new IllegalStateException("Utility Class");
 	}
 	
 	public static List<String> getID(String WMIC_Class, String Key) throws IOException, IndexOutOfBoundsException{
 		String[] command = {"powershell.exe", "Get-WmiObject "+WMIC_Class+" | Select-Object "+Key+" | Format-List"};
-		//TODO remove the println command
-		System.out.println(Arrays.toString(command));
 		Process process = Runtime.getRuntime().exec(command);
 		try {
 			int exitCode = process.waitFor();
@@ -70,8 +67,6 @@ public class WMIC{
 	
 	public static List<String> getIDWhere(String WMIC_Class, String determinantProperty, String determinantValue,  String extractProperty) throws IOException, IndexOutOfBoundsException{
 		String[] command = {"powershell.exe", "Get-WmiObject "+WMIC_Class+" | Where-Object {$_."+determinantProperty+" -eq "+"'"+determinantValue+"'}"+" | Select-Object "+extractProperty+" | Format-List"};
-		//TODO remove the println command
-		System.out.println(Arrays.toString(command));
 		Process process = Runtime.getRuntime().exec(command);
 		try {
 			int exitCode = process.waitFor();
@@ -121,8 +116,6 @@ public class WMIC{
 	public static Map<String, String> get(String WMIC_Class, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException {
 		
 		String[] command = {"powershell.exe", "Get-WmiObject "+WMIC_Class+" | Select-Object "+WMIC_Attributes+" | Format-List"};
-		//TODO remove the println command
-		System.out.println(Arrays.toString(command));
 		Process process = Runtime.getRuntime().exec(command);
 		
 		try {
@@ -178,8 +171,6 @@ public class WMIC{
 	public static Map<String, String> getWhere(String WMIC_Class, String determinantProperty, String determinantValue, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException {
 		
 		String[] command = {"powershell.exe", "Get-WmiObject "+WMIC_Class+" | Where-Object {$_."+determinantProperty+" -eq "+"'"+determinantValue+"'}"+" | Select-Object "+WMIC_Attributes+" | Format-List"};
-		//TODO remove the println command
-				System.out.println(Arrays.toString(command));
 		Process process = Runtime.getRuntime().exec(command);
 		try {
 			int exitCode = process.waitFor();

@@ -3,7 +3,7 @@ package com.ferruml.system.hardware;
 import java.io.IOException;
 import java.util.Map;
 
-import com.ferruml.formatter.wmic.WMIC;
+import com.ferruml.formatter.wmi.WMIC;
 
 public class Win32_BIOS {
 	private static String classname = "Win32_BIOS";

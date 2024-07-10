@@ -14,7 +14,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
-import com.ferruml.formatter.wmic.WMIC;
+import com.ferruml.formatter.wmi.WMIObject;
 import com.ferruml.system.currentuser.User;
 import com.ferruml.system.hardware.HWID;
 import com.ferruml.system.hardware.Win32_CacheMemory;
@@ -152,7 +152,7 @@ public class SummarizedReportGeneration {
 		try {
 			deviceIDs = Win32_SoundDevice.getSoundDeviceID();	
 			for(String currentID : deviceIDs) {
-				currentAudio = WMIC.getWhere("Win32_SoundDevice", "Caption", currentID, "Caption, Manufacturer, Status"); //DeviceID does not work
+				currentAudio = WMIObject.getWhere("Win32_SoundDevice", "Caption", currentID, "Caption, Manufacturer, Status"); //DeviceID does not work
 				for(Map.Entry<String, String> entry: currentAudio.entrySet())
 					report.println(entry.getKey()+": "+entry.getValue());
 				report.println();
@@ -175,7 +175,7 @@ public class SummarizedReportGeneration {
 		try {
 		deviceIDs = Win32_Printer.getDeviceIDList();
 		for(String currentID : deviceIDs) {
-			currentPrinter = WMIC.getWhere("Win32_Printer", "DeviceID", currentID, "Name, HorizontalResolution, VerticalResolution, DriverName, Local, Network");
+			currentPrinter = WMIObject.getWhere("Win32_Printer", "DeviceID", currentID, "Name, HorizontalResolution, VerticalResolution, DriverName, Local, Network");
 			for(Map.Entry<String, String> entry: currentPrinter.entrySet())
 				report.println(entry.getKey()+": "+entry.getValue());
 			report.println();
@@ -198,7 +198,7 @@ public class SummarizedReportGeneration {
 		try {
 			diskID = Win32_DiskDrive.getDriveID();
 			for (String id : diskID) {
-				disk = WMIC.getWhere("Win32_DiskDrive", "Caption", id, "Model, Size, Status");
+				disk = WMIObject.getWhere("Win32_DiskDrive", "Caption", id, "Model, Size, Status");
 				for (Map.Entry<String, String> entry : disk.entrySet())
 					report.println(entry.getKey() + ": " + entry.getValue());
 				report.println();
@@ -220,7 +220,7 @@ public class SummarizedReportGeneration {
 		try {
 			deviceIDs = Win32_NetworkAdapter.getAdapterID();
 			for (String currentID : deviceIDs) {
-				networkAdapter = WMIC.getWhere("Win32_NetworkAdapter", "DeviceID", currentID, "Name, MACAddress, NetConnectionID");
+				networkAdapter = WMIObject.getWhere("Win32_NetworkAdapter", "DeviceID", currentID, "Name, MACAddress, NetConnectionID");
 				
 				for (Map.Entry<String, String> entry : networkAdapter.entrySet())
 					report.println(entry.getKey() + ": " + entry.getValue());
@@ -244,7 +244,7 @@ public class SummarizedReportGeneration {
 		try {
 			portID = Win32_PortConnector.getBaseboardPortID();
 			for (String id : portID) {
-				ports = WMIC.getWhere("Win32_PortConnector", "Tag", id, "ExternalReferenceDesignator");
+				ports = WMIObject.getWhere("Win32_PortConnector", "Tag", id, "ExternalReferenceDesignator");
 				for (Map.Entry<String, String> port : ports.entrySet())
 					report.println(port.getValue());
 			}
@@ -261,7 +261,7 @@ public class SummarizedReportGeneration {
 	private static void reportBIOS(PrintWriter report, JTextArea errorDisplay) {
 		report.println("----------------------BIOS INFO------------------------");
 		try {
-			Map<String, String> BIOS = WMIC.getWhere("Win32_BIOS", "PrimaryBIOS", "True", "Name, Manufacturer, ReleaseDate");
+			Map<String, String> BIOS = WMIObject.getWhere("Win32_BIOS", "PrimaryBIOS", "True", "Name, Manufacturer, ReleaseDate");
 			for (Map.Entry<String, String> entry : BIOS.entrySet())
 				report.println(entry.getKey() + ": " + entry.getValue());
 			if(BIOS.isEmpty())
@@ -277,7 +277,7 @@ public class SummarizedReportGeneration {
 	private static void reportMotherboard(PrintWriter report, JTextArea errorDisplay) {
 		report.println("----------------------MAINBOARD------------------------");
 		try {
-			Map<String, String> motherboard = WMIC.get("Win32_Baseboard", "Manufacturer, Model, Product");
+			Map<String, String> motherboard = WMIObject.get("Win32_Baseboard", "Manufacturer, Model, Product");
 			for (Map.Entry<String, String> entry : motherboard.entrySet())
 				report.println(entry.getKey() + ": " + entry.getValue());
 			
@@ -299,7 +299,7 @@ public class SummarizedReportGeneration {
 		try {
 			gpuIDs = Win32_VideoController.getGPUID();
 			for (String currentID : gpuIDs) {
-				currentGPU = WMIC.getWhere("Win32_VideoController", "DeviceID", currentID, "Name, VideoProcessor, DriverVersion, AdapterRAM, CurrentHorizontalResolution, CurrentVerticalResolution");
+				currentGPU = WMIObject.getWhere("Win32_VideoController", "DeviceID", currentID, "Name, VideoProcessor, DriverVersion, AdapterRAM, CurrentHorizontalResolution, CurrentVerticalResolution");
 				for (Map.Entry<String, String> entry : currentGPU.entrySet())
 					report.println(entry.getKey() + ": " + entry.getValue());
 			}
@@ -321,7 +321,7 @@ public class SummarizedReportGeneration {
 		try {
 			memoryID=Win32_PhysicalMemory.getTag();
 			for (String id : memoryID) {
-				memory = WMIC.getWhere("Win32_PhysicalMemory", "Tag", id, "Manufacturer, Model, PartNumber, Capacity, Speed");
+				memory = WMIObject.getWhere("Win32_PhysicalMemory", "Tag", id, "Manufacturer, Model, PartNumber, Capacity, Speed");
 				for (Map.Entry<String, String> entry : memory.entrySet())
 					report.println(entry.getKey() + ": " + entry.getValue());
 				report.println();
@@ -345,7 +345,7 @@ public class SummarizedReportGeneration {
 			cacheIDs = Win32_CacheMemory.getCacheID();
 		
 			for(String currentCacheID : cacheIDs) {
-				cache = WMIC.getWhere("Win32_CacheMemory", "DeviceID", currentCacheID, "Purpose, InstalledSize");
+				cache = WMIObject.getWhere("Win32_CacheMemory", "DeviceID", currentCacheID, "Purpose, InstalledSize");
 				for(Map.Entry<String, String> entry: cache.entrySet())
 					report.println(entry.getKey()+": "+entry.getValue());
 				report.println();
@@ -368,7 +368,7 @@ public class SummarizedReportGeneration {
 		try {
 			oslist = Win32_OperatingSystem.getOSList();
 			for (String currentOS : oslist) {
-				osinfo = WMIC.getWhere("Win32_OperatingSystem", "Caption", currentOS, "Name, Caption, InstallDate, CSName, BuildNumber, OSArchitecture, WindowsDirectory");
+				osinfo = WMIObject.getWhere("Win32_OperatingSystem", "Caption", currentOS, "Name, Caption, InstallDate, CSName, BuildNumber, OSArchitecture, WindowsDirectory");
 				for (Map.Entry<String, String> entry : osinfo.entrySet())
 					report.println(entry.getKey() + ": " + entry.getValue());
 			}
@@ -390,7 +390,7 @@ public class SummarizedReportGeneration {
 		try {
 			deviceIDs = Win32_Processor.getProcessorList();
 			for (String currentID : deviceIDs) {
-				currentCPU = WMIC.getWhere("Win32_Processor", "DeviceID", currentID, "Name, NumberOfCores, ThreadCount, NumberOfLogicalProcessors, Manufacturer");
+				currentCPU = WMIObject.getWhere("Win32_Processor", "DeviceID", currentID, "Name, NumberOfCores, ThreadCount, NumberOfLogicalProcessors, Manufacturer");
 				for (Map.Entry<String, String> entry : currentCPU.entrySet())
 					report.println(entry.getKey() + ": " + entry.getValue());
 				report.println();

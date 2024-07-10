@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import com.ferruml.formatter.wmic.WMIC;
+import com.ferruml.formatter.wmi.WMIObject;
 
 public class Win32_OperatingSystem {
 	private static String classname = "Win32_OperatingSystem";
@@ -14,10 +14,10 @@ public class Win32_OperatingSystem {
 	}
 	
 	public static List<String> getOSList() throws IOException, IndexOutOfBoundsException {
-		return WMIC.getID(classname, "Caption");
+		return WMIObject.getID(classname, "Caption");
 		}
 	
 	public static Map<String, String> getOSInfo(String OSName) throws IOException, IndexOutOfBoundsException {
-		return WMIC.getWhere(classname, "Caption", OSName, attributes);
+		return WMIObject.getWhere(classname, "Caption", OSName, attributes);
 	}
 }
