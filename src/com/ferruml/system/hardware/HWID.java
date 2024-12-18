@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import com.ferruml.exceptions.ShellException;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class HWID {
@@ -14,7 +15,7 @@ public class HWID {
 		throw new IllegalStateException("Utility Class");
 	}
 	
-	private static String getDiskSerials() throws IndexOutOfBoundsException, IOException {
+	private static String getDiskSerials() throws IndexOutOfBoundsException, IOException, ShellException, InterruptedException {
 		List<String> ideInterface = WMIC.getIDWhere("Win32_DiskDrive", "InterfaceType", "IDE", "SerialNumber");
 		List<String> scsiInterface = WMIC.getIDWhere("Win32_DiskDrive", "InterfaceType", "SCSI", "SerialNumber");
 		

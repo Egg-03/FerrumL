@@ -3,6 +3,7 @@ package com.ferruml.system.hardware;
 import java.io.IOException;
 import java.util.Map;
 
+import com.ferruml.exceptions.ShellException;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_BIOS {
@@ -12,7 +13,7 @@ public class Win32_BIOS {
 		throw new IllegalStateException("Utility Class");
 	}
 	
-	public static Map<String, String> getPrimaryBIOS() throws IOException, IndexOutOfBoundsException {
+	public static Map<String, String> getPrimaryBIOS() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 		return WMIC.getWhere(classname, "PrimaryBIOS", "true", attributes);
 	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import com.ferruml.exceptions.ShellException;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_VideoController {
@@ -13,11 +14,11 @@ public class Win32_VideoController {
 		throw new IllegalStateException("Utility Class");
 	}
 	
-	public static List<String> getGPUID() throws IOException, IndexOutOfBoundsException{
+	public static List<String> getGPUID() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException{
 		return WMIC.getID(classname, "DeviceID");
 	}
 	
-	public static Map<String, String> getGPU(String gpuID) throws IOException, IndexOutOfBoundsException{
+	public static Map<String, String> getGPU(String gpuID) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException{
 		return WMIC.getWhere(classname, "DeviceID", gpuID, attributes);
 	}
 }

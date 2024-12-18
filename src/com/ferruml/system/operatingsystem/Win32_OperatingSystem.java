@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import com.ferruml.exceptions.ShellException;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_OperatingSystem {
@@ -13,11 +14,11 @@ public class Win32_OperatingSystem {
 		throw new IllegalStateException("Utility Class");
 	}
 	
-	public static List<String> getOSList() throws IOException, IndexOutOfBoundsException {
+	public static List<String> getOSList() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 		return WMIC.getID(classname, "Caption");
 		}
 	
-	public static Map<String, String> getOSInfo(String OSName) throws IOException, IndexOutOfBoundsException {
+	public static Map<String, String> getOSInfo(String OSName) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 		return WMIC.getWhere(classname, "Caption", OSName, attributes);
 	}
 }

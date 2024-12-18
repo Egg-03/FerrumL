@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import com.ferruml.exceptions.ShellException;
 import com.ferruml.formatter.wmic.WMIC;
 
 public class Win32_Processor{
@@ -14,11 +15,11 @@ public class Win32_Processor{
 		throw new IllegalStateException("Utility Class");
 	}
 	
-	public static List<String> getProcessorList() throws IOException, IndexOutOfBoundsException {
+	public static List<String> getProcessorList() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 		return WMIC.getID(alias, precedent);
 	}
 	
-	public static Map<String, String> getCurrentProcessor(String currentProcessorID) throws IOException, IndexOutOfBoundsException {
+	public static Map<String, String> getCurrentProcessor(String currentProcessorID) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 		String attributes = "Name, NumberOfCores, NumberOfLogicalProcessors, ThreadCount, Manufacturer, AddressWidth, L2CacheSize, L3CacheSize, MaxClockSpeed, ExtClock, SocketDesignation, Version, Caption, Family, Stepping, VirtualizationFirmwareEnabled, ProcessorID";
 		return WMIC.getWhere(alias, precedent, currentProcessorID, attributes);
 	}
