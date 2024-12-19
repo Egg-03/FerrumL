@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.ferruml.exceptions"},{"l":"com.ferruml.formatter.wmic"},{"l":"com.ferruml.system.currentuser"},{"l":"com.ferruml.system.hardware"},{"l":"com.ferruml.system.operatingsystem"}];updateSearchResults();

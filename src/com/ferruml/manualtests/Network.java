@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ferruml.exceptions.ShellException;
-import com.ferruml.system.network.Win32_NetworkAdapter;
+import com.ferruml.system.hardware.Win32_NetworkAdapter;
 
 public class Network {
 	public static void main(String[] args)
