@@ -2,7 +2,6 @@ package com.ferruml.exceptions;
 
 /**
  * This is a custom exception class that is thrown when there are errors from command prompt's output
- *
  * @author Egg-03
  * @version 1.3.1
  */
