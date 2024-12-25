@@ -16,7 +16,6 @@ import com.ferruml.formatter.wmic.WMIC;
  * DataWidth, Speed, ConfiguredClockSpeed, DeviceLocator, SerialNumber
  *
  * @author Egg-03
- * @version 1.3.1
  */
 public class Win32_PhysicalMemory {
 	

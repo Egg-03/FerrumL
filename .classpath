@@ -6,5 +6,8 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="dependency/tinylog-2.7.0/tinylog-api-2.7.0.jar"/>
+	<classpathentry kind="lib" path="dependency/tinylog-2.7.0/tinylog-impl-2.7.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

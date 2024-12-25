@@ -17,7 +17,6 @@ import com.ferruml.formatter.wmic.WMIC;
  * ShareName, SpoolEnabled, WorkOffline
  *
  * @author Egg-03
- * @version 1.3.0
  */
 public class Win32_Printer {
 	

@@ -4,7 +4,6 @@ package com.ferruml.system.currentuser;
  * Retrieves the User Information of the Account logged in to the system
  * 
  * @author Egg-03
- * @version 1.3.1
  */
 public class User {
 	private User() {

@@ -17,7 +17,6 @@ import com.ferruml.formatter.wmic.WMIC;
  * Family, Stepping, VirtualizationFirmwareEnabled, ProcessorID
  *
  * @author Egg-03
- * @version 1.3.0
  */
 public class Win32_Processor{
 	

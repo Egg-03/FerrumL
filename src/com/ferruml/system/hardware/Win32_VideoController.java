@@ -17,7 +17,6 @@ import com.ferruml.formatter.wmic.WMIC;
  * DriverVersion, VideoProcessor
  *
  * @author Egg-03
- * @version 1.3.1
  */
 public class Win32_VideoController {
 	

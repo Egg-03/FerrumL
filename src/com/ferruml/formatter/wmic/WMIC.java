@@ -49,60 +49,18 @@ public class WMIC {
 	 *                                   exception, you may re-throw it's
 	 *                                   interrupted status by using
 	 *                                   Thread.currentThread().interrupt();
-	 *                                   <p>
-	 *                                   While catching any of the Exceptions, you
-	 *                                   may return an empty list to avoid any
-	 *                                   {@link java.lang.NullPointerException} that
-	 *                                   might get thrown because your variable
-	 *                                   might be expecting a string. However, this
-	 *                                   does not make you immune from the
-	 *                                   NullPointerExceptions that may be thrown in
-	 *                                   case of command prompt output format
-	 *                                   changes in the future, causing the
-	 *                                   underlying parsing logic to fail.
 	 */
-	public static List<String> getID(String WMIC_Class, String Key)
-			throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
+	public static List<String> getID(String WMIC_Class, String Key) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 		String[] command = { "cmd", "/" + systemDriveLetter,
 				"wmic path " + WMIC_Class + " get " + Key + " /format:list" };
 		Process process = Runtime.getRuntime().exec(command);
 
 		int exitCode = process.waitFor();
 		if (exitCode != 0) {
-			BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-			String errorLine;
-			List<String> errorList = new ArrayList<>();
-
-			while ((errorLine = error.readLine()) != null)
-				if (!errorLine.isBlank() || !errorLine.isEmpty())
-					errorList.add(errorLine);
-
-			error.close();
-
-			throw new ShellException("\n" + WMIC_Class + "-" + Key + "\n" + errorList.toString()
-					+ "\nProcess Exited with code:" + exitCode + "\n\n");
-
+			errorCapture(process, exitCode);
 		}
 
-		BufferedReader stream = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-		String currentLine;
-
-		String value = "";
-		List<String> ID = new ArrayList<>();
-
-		while ((currentLine = stream.readLine()) != null)
-			if (!currentLine.isBlank() || !currentLine.isEmpty()) {
-				if (currentLine.contains("=")) {
-					value = currentLine.substring(currentLine.indexOf("=") + 1).strip();
-					ID.add(value);
-				} else {
-					value = value.concat(currentLine);
-					ID.add(ID.indexOf(ID.getLast()), value);
-				}
-			}
-		stream.close();
-		return ID;
+		return attributeValues(process);
 	}
 
 	/**
@@ -140,58 +98,18 @@ public class WMIC {
 	 *                                   exception, you may re-throw it's
 	 *                                   interrupted status by using
 	 *                                   Thread.currentThread().interrupt();
-	 *                                   <p>
-	 *                                   While catching any of the Exceptions, you
-	 *                                   may return an empty list to avoid any
-	 *                                   {@link java.lang.NullPointerException} that
-	 *                                   might get thrown because your variable
-	 *                                   might be expecting a string. However, this
-	 *                                   does not make you immune from the
-	 *                                   NullPointerExceptions that may be thrown in
-	 *                                   case of command prompt output format
-	 *                                   changes in the future, causing the
-	 *                                   underlying parsing logic to fail.
 	 */
-	public static List<String> getIDWhere(String WMIC_Class, String determinantProperty, String determinantValue,
-			String extractProperty)
-			throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
+	public static List<String> getIDWhere(String WMIC_Class, String determinantProperty, String determinantValue, String extractProperty) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 		String[] command = { "cmd", "/" + systemDriveLetter, "wmic path " + WMIC_Class + " where " + determinantProperty
 				+ "=" + "\"" + determinantValue + "\"" + " get " + extractProperty + " /format:list" };
 		Process process = Runtime.getRuntime().exec(command);
+		
 		int exitCode = process.waitFor();
 		if (exitCode != 0) {
-			BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-			String errorLine;
-			List<String> errorList = new ArrayList<>();
-
-			while ((errorLine = error.readLine()) != null)
-				if (!errorLine.isBlank() || !errorLine.isEmpty())
-					errorList.add(errorLine);
-
-			error.close();
-			throw new ShellException("\n" + WMIC_Class + "-" + extractProperty + "\n" + errorList.toString()
-					+ "\nProcess Exited with code:" + exitCode + "\n\n");
+			errorCapture(process, exitCode);
 		}
 
-		BufferedReader stream = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-		String currentLine;
-
-		String value = "";
-		List<String> ID = new ArrayList<>();
-
-		while ((currentLine = stream.readLine()) != null)
-			if (!currentLine.isBlank() || !currentLine.isEmpty()) {
-				if (currentLine.contains("=")) {
-					value = currentLine.substring(currentLine.indexOf("=") + 1).strip();
-					ID.add(value);
-				} else {
-					value = value.concat(currentLine);
-					ID.add(ID.indexOf(ID.getLast()), value);
-				}
-			}
-		stream.close();
-		return ID;
+		return attributeValues(process);
 	}
 
 	/**
@@ -224,20 +142,8 @@ public class WMIC {
 	 *                                   exception, you may re-throw it's
 	 *                                   interrupted status by using
 	 *                                   Thread.currentThread().interrupt();
-	 *                                   <p>
-	 *                                   While catching any of the Exceptions, you
-	 *                                   may return an empty Map to avoid any
-	 *                                   {@link java.lang.NullPointerException} that
-	 *                                   might get thrown because your variable
-	 *                                   might be expecting a string. However, this
-	 *                                   does not make you immune from the
-	 *                                   NullPointerExceptions that may be thrown in
-	 *                                   case of command prompt output format
-	 *                                   changes in the future, causing the
-	 *                                   underlying parsing logic to fail.
 	 */
-	public static Map<String, String> get(String WMIC_Class, String WMIC_Attributes)
-			throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
+	public static Map<String, String> get(String WMIC_Class, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 
 		String[] command = { "cmd", "/" + systemDriveLetter,
 				"wmic path " + WMIC_Class + " get " + WMIC_Attributes + " /format:list" };
@@ -245,42 +151,10 @@ public class WMIC {
 
 		int exitCode = process.waitFor();
 		if (exitCode != 0) {
-			BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-			String errorLine;
-			List<String> errorList = new ArrayList<>();
-
-			while ((errorLine = error.readLine()) != null)
-				if (!errorLine.isBlank() || !errorLine.isEmpty())
-					errorList.add(errorLine);
-
-			error.close();
-
-			throw new ShellException("\n" + WMIC_Class + "-" + WMIC_Attributes + "\n" + errorList.toString()
-					+ "\nProcess Exited with code:" + exitCode + "\n\n");
+			errorCapture(process, exitCode);
 		}
 
-		// get cmd contents
-		BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-		String currentLine;
-
-		String key = "";
-		String value = "";
-		Map<String, String> property = new LinkedHashMap<>();
-
-		while ((currentLine = br.readLine()) != null)
-			if (!currentLine.isBlank() || !currentLine.isEmpty()) {
-				if (currentLine.contains("=")) {
-					key = currentLine.substring(0, currentLine.indexOf("=")).strip();
-					value = currentLine.substring(currentLine.indexOf("=") + 1).strip();
-					property.put(key, value);
-				} else {
-					value = value.concat(currentLine);
-					property.replace(key, value);
-				}
-			}
-		br.close();
-		return property;
+		return attributesAndTheirValues(process);
 	}
 
 	/**
@@ -321,22 +195,9 @@ public class WMIC {
 	 *                                   exception, you may re-throw it's
 	 *                                   interrupted status by using
 	 *                                   Thread.currentThread().interrupt();
-	 *                                   <p>
-	 *                                   While catching any of the Exceptions, you
-	 *                                   may return an empty Map to avoid any
-	 *                                   {@link java.lang.NullPointerException} that
-	 *                                   might get thrown because your variable
-	 *                                   might be expecting a string. However, this
-	 *                                   does not make you immune from the
-	 *                                   NullPointerExceptions that may be thrown in
-	 *                                   case of command prompt output format
-	 *                                   changes in the future, causing the
-	 *                                   underlying parsing logic to fail.
 	 */
 
-	public static Map<String, String> getWhere(String WMIC_Class, String determinantProperty, String determinantValue,
-			String WMIC_Attributes)
-			throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
+	public static Map<String, String> getWhere(String WMIC_Class, String determinantProperty, String determinantValue, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 
 		String[] command = { "cmd", "/" + systemDriveLetter, "wmic path " + WMIC_Class + " where " + determinantProperty
 				+ "=" + "\"" + determinantValue + "\"" + " get " + WMIC_Attributes + " /format:list" };
@@ -344,41 +205,85 @@ public class WMIC {
 
 		int exitCode = process.waitFor();
 		if (exitCode != 0) {
-			BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			errorCapture(process, exitCode);
+		}
+
+		return attributesAndTheirValues(process);
+	}
+	
+	/**
+	 * 
+	 * @param process
+	 * @param exitCode
+	 * @throws IOException
+	 * @throws ShellException
+	 */
+	private static void errorCapture(Process process, int exitCode) throws IOException, ShellException {
+		try(BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
 			String errorLine;
-			List<String> errorList = new ArrayList<>();
+			StringBuilder errorLines = new StringBuilder();
 
 			while ((errorLine = error.readLine()) != null)
 				if (!errorLine.isBlank() || !errorLine.isEmpty())
-					errorList.add(errorLine);
+					errorLines.append(errorLine);
 
-			error.close();
-
-			throw new ShellException(
-					"\n" + WMIC_Class + "-" + determinantProperty + "-" + determinantValue + "-" + WMIC_Attributes
-							+ "\n" + errorList.toString() + "\nProcess Exited with code:" + exitCode + "\n\n");
+			throw new ShellException(errorLines.toString()+ "\nProcess Exited with code:" + exitCode + "\n");
 		}
+		
+	}
+	
+	/**
+	 * Captures command prompt errors and throw them as ShellExceptions in case the process exit code is not 0
+	 * @param process
+	 * @return
+	 * @throws IOException
+	 */
+	private static List<String> attributeValues(Process process) throws IOException {
+		try(BufferedReader stream = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+			String currentLine = "";
+			String value = "";
+			
+			List<String> ID = new ArrayList<>();
 
-		BufferedReader stream = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-		String currentLine;
-
-		String key = "";
-		String value = "";
-		Map<String, String> property = new LinkedHashMap<>();
-
-		while ((currentLine = stream.readLine()) != null)
-			if (!currentLine.isBlank() || !currentLine.isEmpty()) {
-				if (currentLine.contains("=")) {
-					key = currentLine.substring(0, currentLine.indexOf("=")).strip();
-					value = currentLine.substring(currentLine.indexOf("=") + 1).strip();
-					property.put(key, value);
-				} else {
-					value = value.concat(currentLine);
-					property.replace(key, value);
+			while ((currentLine = stream.readLine()) != null)
+				if (!currentLine.isBlank() || !currentLine.isEmpty()) {
+					if (currentLine.contains("=")) {
+						value = currentLine.substring(currentLine.indexOf("=") + 1).strip();
+						ID.add(value);
+					} else {
+						value = value.concat(currentLine);
+						ID.add(ID.indexOf(ID.getLast()), value);
+					}
 				}
-			}
-		stream.close();
-		return property;
+			return ID;
+		}
+	}
+	
+	/**
+	 * Returns a map of attribute names and their values as a key-value pair with attribute name being the key and the attribute value being the value
+	 * @param process
+	 * @return
+	 * @throws IOException
+	 */
+	private static Map<String, String> attributesAndTheirValues(Process process) throws IOException {
+		try(BufferedReader stream = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+			String currentLine = "";
+			String key = "";
+			String value = "";
+			Map<String, String> attributesAndValues = new LinkedHashMap<>();
+
+			while ((currentLine = stream.readLine()) != null)
+				if (!currentLine.isBlank() || !currentLine.isEmpty()) {
+					if (currentLine.contains("=")) {
+						key = currentLine.substring(0, currentLine.indexOf("=")).strip();
+						value = currentLine.substring(currentLine.indexOf("=") + 1).strip();
+						attributesAndValues.put(key, value);
+					} else {
+						value = value.concat(currentLine);
+						attributesAndValues.replace(key, value);
+					}
+				}
+			return attributesAndValues;
+		}
 	}
 }

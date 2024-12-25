@@ -14,8 +14,6 @@ import com.ferruml.formatter.wmic.WMIC;
  * Hardware ID generation class based on the following format :
  * "CPUName/CPUID/MotherboardName/DriveIDs"
  *
- * @author Egg-03
- * @version 1.3.1
  */
 public class HWID {
 	
