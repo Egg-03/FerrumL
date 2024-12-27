@@ -21,7 +21,7 @@
 ![Commits to main since latest release](https://img.shields.io/github/commits-since/Egg-03/FerrumL/latest)
 
 # About
-FerrumL is a lightweight Hardware and Network Information wrapper written in pure Java. It contacts some [Computer System Hardware Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/computer-system-hardware-classes) and [Operating System Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/operating-system-classes) of Windows Management Instrumentation (WMI) through [WMIC](https://learn.microsoft.com/en-us/windows/win32/wmisdk/wmic) to fetch comprehensive system details on Windows Operating Systems.
+FerrumL (for Windows Vista and 7) is a lightweight Hardware and Network Information wrapper written in pure Java. It contacts some [Computer System Hardware Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/computer-system-hardware-classes) and [Operating System Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/operating-system-classes) of Windows Management Instrumentation (WMI) through [WMIC](https://learn.microsoft.com/en-us/windows/win32/wmisdk/wmic) to fetch comprehensive system details on Windows Operating Systems.
 
 # Supported Operating Systems
 FerrumL has been designed to support legacy OSes like Windows 7 and Vista but also supports Windows 8, 8.1, 10 and 11 (as long as Microsoft does not pull the plug from WMIC)
