@@ -1,5 +1,5 @@
 <p align="center"> 
-  <img src="https://github.com/Egg-03/FerrumX/assets/111327101/9aee9cdf-5213-401b-814d-a9738ee1a24c" alt="FerrumX logo">
+  <img src="https://github.com/user-attachments/assets/9316401c-4f8a-4b70-bd04-9da1bcbccc1f"alt="FerrumL logo">
 </p>
 
 [![Project Stats](https://openhub.net/p/FerrumL/widgets/project_thin_badge.gif)](https://openhub.net/p/FerrumL)
@@ -47,7 +47,8 @@ attach the tutorials for Eclipse and IntelliJ Idea
 Documentation can be found [here](https://egg-03.github.io/FerrumL-Documentation/)
 
 # Usage
-Wiki under construction
+> Wiki under construction
+
 You can also check out some examples [here](https://github.com/Egg-03/FerrumL/tree/96dc8a18b3724b72589ade0c372386503ec4c4f5/src/com/ferruml/tests)
 # License
 This project is licensed under the MIT License. Read the LICENSE.md for more information.
