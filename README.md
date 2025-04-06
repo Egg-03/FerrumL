@@ -13,11 +13,7 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumL&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumL)
 
 [![License](https://img.shields.io/github/license/Egg-03/FerrumL)](https://github.com/Egg-03/FerrumL/blob/main/LICENSE)
-![Repo Size](https://img.shields.io/github/repo-size/Egg-03/FerrumL)
-![Language](https://img.shields.io/github/languages/top/Egg-03/FerrumL)
-![Release Version](https://img.shields.io/github/v/release/Egg-03/FerrumL)
-![Release Date](https://img.shields.io/github/release-date/Egg-03/FerrumL)
-![Downloads](https://img.shields.io/github/downloads/Egg-03/FerrumL/total)
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.egg-03/ferrum-l)](https://central.sonatype.com/artifact/io.github.egg-03/ferrum-l)
 ![Commits to main since latest release](https://img.shields.io/github/commits-since/Egg-03/FerrumL/latest)
 
 # About
@@ -28,20 +24,20 @@ FerrumL has been designed to support legacy OSes like Windows 7 and Vista but al
 FerrumL also lacks some features FerrumX offers and is more error-prone than FerrumX because some sections of hardware in FerrumL are sorted by their names and not their Device IDs.
 I will detail them later. Unless you absolutely need FerrumL, I would recommend [FerrumX](https://github.com/Egg-03/FerrumX) instead
 
-# Installation
-<h4>For Developers:</h4>
-If you wish to use the wrapper in your own project, you can do so by downloading the main jar file along with it's documentation
-
-- Download the main jar file *[FerrumL-core-vX.X.X]* from [FerrumL Releases](https://github.com/Egg-03/FerrumL/releases)
-- [Optional] Download the javadoc jar file *[FerrumL-doc-vX.X.X]*
-- Import the main jar file as a classpath dependency in your project.
-- [Optional] Attach the javadoc to the jar file
-
-The methods for linking an external jar file with its javadoc as a dependency varies with the IDE you will use. You should be able to find online help for it and if I get time, I'll 
-attach the tutorials for Eclipse and IntelliJ Idea
-
-# Dependencies
-> The wrapper relies on optional dependencies, the testing framework JUnit5 and the logging framework TinyLog 2.7.0 for testing code
+# Download
+Add the following dependency to your maven project:
+```xml
+<dependency>
+    <groupId>io.github.egg-03</groupId>
+    <artifactId>ferrum-l</artifactId>
+    <version>1.3.2</version>
+</dependency>
+```
+or if you use Gradle:
+```gradle
+implementation group: 'io.github.egg-03', name: 'ferrum-l', version: '1.3.2'
+```
+For other build ecosystems, check out the [Maven Central Repository](https://central.sonatype.com/artifact/io.github.egg-03/ferrum-l/overview)
 
 # Documentation
 Documentation can be found [here](https://egg-03.github.io/FerrumL-Documentation/)
