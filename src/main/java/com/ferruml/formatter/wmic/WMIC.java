@@ -15,7 +15,6 @@ import com.ferruml.exceptions.ShellException;
  * one of the four methods called by the methods in other packages.
  * 
  * @author Egg-03
- * @version 1.3.1
  */
 public class WMIC {
 	private static String systemDriveLetter = System.getenv("SystemDrive").toLowerCase().substring(0, 1);
