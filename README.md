@@ -30,12 +30,12 @@ Add the following dependency to your maven project:
 <dependency>
     <groupId>io.github.egg-03</groupId>
     <artifactId>ferrum-l</artifactId>
-    <version>1.3.2</version>
+    <version>1.3.3</version>
 </dependency>
 ```
 or if you use Gradle:
 ```gradle
-implementation group: 'io.github.egg-03', name: 'ferrum-l', version: '1.3.2'
+implementation group: 'io.github.egg-03', name: 'ferrum-l', version: '1.3.3'
 ```
 For other build ecosystems, check out the [Maven Central Repository](https://central.sonatype.com/artifact/io.github.egg-03/ferrum-l/overview)
 
