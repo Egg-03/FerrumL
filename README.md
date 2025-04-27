@@ -4,9 +4,9 @@
 
 [![Project Stats](https://openhub.net/p/FerrumL/widgets/project_thin_badge.gif)](https://openhub.net/p/FerrumL)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumL&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumL)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumL&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumL)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Egg-03/FerrumL/.github%2Fworkflows%2Fmaven_verify.yml)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumL&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumL)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumL&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumL)
+
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumL&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumL)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumL&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumL)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumL&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumL)
