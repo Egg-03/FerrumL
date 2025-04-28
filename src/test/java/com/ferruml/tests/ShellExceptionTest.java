@@ -19,7 +19,7 @@ class ShellExceptionTest {
 	@Test
 	void getTest() throws IndexOutOfBoundsException, IOException, InterruptedException {
 		try {
-			WMIC.get("FalseAttribute", "FalseValue");
+			WMIC.getPropertiesAndTheirValues("FalseAttribute", "FalseValue");
 			fail("Expected exception was not thrown");
 		} catch (ShellException e) {
 			Logger.debug(e.getMessage());
@@ -29,7 +29,7 @@ class ShellExceptionTest {
 	@Test
 	void getWhereTest() throws IndexOutOfBoundsException, IOException, InterruptedException {
 		try {
-			WMIC.getWhere(null, null, null, null);
+			WMIC.getPropertiesAndTheirValuesWhere(null, null, null, null);
 			fail("Expected exception was not thrown");
 		} catch (ShellException e) {
 			Logger.debug(e.getMessage());
@@ -39,7 +39,7 @@ class ShellExceptionTest {
 	@Test
 	void getIdTest() throws IndexOutOfBoundsException, IOException, InterruptedException {
 		try {
-			WMIC.getID(null, null);
+			WMIC.getValue(null, null);
 			fail("Expected exception was not thrown");
 		} catch (ShellException e) {
 			Logger.debug(e.getMessage());
@@ -49,7 +49,7 @@ class ShellExceptionTest {
 	@Test
 	void getIdWhereTest() throws IndexOutOfBoundsException, IOException, InterruptedException {
 		try {
-			WMIC.getIDWhere(null, null, null, null);
+			WMIC.getValueWhere(null, null, null, null);
 			fail("Expected exception was not thrown");
 		} catch (ShellException e) {
 			Logger.debug(e.getMessage());

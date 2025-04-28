@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.StringUtils;
 import org.tinylog.Logger;
 
 import com.ferruml.exceptions.ShellException;
@@ -32,7 +33,7 @@ class HardwareTests {
 	void hardwareIdTest() throws ExecutionException, InterruptedException {
 		String hwid = HWID.getHardwareID();
 		Logger.debug(hwid);
-		assertFalse(hwid.isBlank() || hwid.isEmpty());
+		assertFalse(StringUtils.isBlank(hwid));
 	}
 	
 	@Test

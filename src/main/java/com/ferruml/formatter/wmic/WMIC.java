@@ -34,10 +34,9 @@ public class WMIC {
 	 * Example Usage: WMIC.getID(Win32_Processor, "DeviceID"); This will fetch a
 	 * list of CPU IDs provided by the instances of the Win32_Processor class
 	 * 
-	 * @param WMIC_Class the class name passed to by the method calling it
-	 * @param Key        passed to by the method calling it
-	 * @return a list of values requested by the method calling it. The values
-	 *         returned are of the property {@literal Key}
+	 * @param className    the class name passed to by the method calling it
+	 * @param propertyName passed to by the method calling it
+	 * @return a list of values for the given property
 	 * @throws IOException               in case of general I/O errors
 	 * @throws IndexOutOfBoundsException in case of text parsing issues from command
 	 *                                   prompt
@@ -49,9 +48,10 @@ public class WMIC {
 	 *                                   interrupted status by using
 	 *                                   Thread.currentThread().interrupt();
 	 */
-	public static List<String> getID(String WMIC_Class, String Key) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
+	public static List<String> getValue(String className, String propertyName)
+			throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 		String[] command = { "cmd", "/" + systemDriveLetter,
-				"wmic path " + WMIC_Class + " get " + Key + " /format:list" };
+				"wmic path " + className + " get " + propertyName + " /format:list" };
 		Process process = Runtime.getRuntime().exec(command);
 
 		int exitCode = process.waitFor();
@@ -59,7 +59,7 @@ public class WMIC {
 			errorCapture(process, exitCode);
 		}
 
-		return attributeValues(process);
+		return propertyValueParser(process);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class WMIC {
 	 * the Win32_NetworkAdapter class provided that their NetEnabled property is
 	 * true
 	 * 
-	 * @param WMIC_Class          the classname passed to by the calling method
+	 * @param className           the class name passed to by the calling method
 	 * @param determinantProperty a filtering parameter, passed to by the calling
 	 *                            method
 	 * @param determinantValue    the value of the filtering parameter, also passed
@@ -98,17 +98,19 @@ public class WMIC {
 	 *                                   interrupted status by using
 	 *                                   Thread.currentThread().interrupt();
 	 */
-	public static List<String> getIDWhere(String WMIC_Class, String determinantProperty, String determinantValue, String extractProperty) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
-		String[] command = { "cmd", "/" + systemDriveLetter, "wmic path " + WMIC_Class + " where " + determinantProperty
+	public static List<String> getValueWhere(String className, String determinantProperty, String determinantValue,
+			String extractProperty)
+			throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
+		String[] command = { "cmd", "/" + systemDriveLetter, "wmic path " + className + " where " + determinantProperty
 				+ "=" + "\"" + determinantValue + "\"" + " get " + extractProperty + " /format:list" };
 		Process process = Runtime.getRuntime().exec(command);
-		
+
 		int exitCode = process.waitFor();
 		if (exitCode != 0) {
 			errorCapture(process, exitCode);
 		}
 
-		return attributeValues(process);
+		return propertyValueParser(process);
 	}
 
 	/**
@@ -125,10 +127,10 @@ public class WMIC {
 	 * SerialNumber, Version"); This fetches a {@link java.util.Map} of attributes
 	 * and their values from the Baseboard class
 	 * 
-	 * @param WMIC_Class      the class name passed to by the calling method
-	 * @param WMIC_Attributes a list of properties requested for a particular class.
-	 *                        The properties requested by the calling methods can be
-	 *                        found in their respective class descriptions
+	 * @param className  the class name passed to by the calling method
+	 * @param properties a list of properties requested for a particular class. The
+	 *                   properties requested by the calling methods can be found in
+	 *                   their respective class descriptions
 	 * @return a {@link java.util.Map} of the attribute values requested by the
 	 *         calling method
 	 * @throws IOException               in case of general I/O errors
@@ -142,10 +144,11 @@ public class WMIC {
 	 *                                   interrupted status by using
 	 *                                   Thread.currentThread().interrupt();
 	 */
-	public static Map<String, String> get(String WMIC_Class, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
+	public static Map<String, String> getPropertiesAndTheirValues(String className, String properties)
+			throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 
 		String[] command = { "cmd", "/" + systemDriveLetter,
-				"wmic path " + WMIC_Class + " get " + WMIC_Attributes + " /format:list" };
+				"wmic path " + className + " get " + properties + " /format:list" };
 		Process process = Runtime.getRuntime().exec(command);
 
 		int exitCode = process.waitFor();
@@ -153,7 +156,7 @@ public class WMIC {
 			errorCapture(process, exitCode);
 		}
 
-		return attributesAndTheirValues(process);
+		return propertiesAndTheirValuesParser(process);
 	}
 
 	/**
@@ -173,8 +176,8 @@ public class WMIC {
 	 * attributes); This fetches the attributes and their values of the BIOS if it's
 	 * a Primary BIOS.
 	 * 
-	 * @param WMIC_Class          the class name passed to by the calling method
-	 * @param WMIC_Attributes     a list of properties requested for a particular
+	 * @param className           the class name passed to by the calling method
+	 * @param properties          a list of properties requested for a particular
 	 *                            class. The properties requested by the calling
 	 *                            methods can be found in their respective class
 	 *                            descriptions
@@ -196,10 +199,12 @@ public class WMIC {
 	 *                                   Thread.currentThread().interrupt();
 	 */
 
-	public static Map<String, String> getWhere(String WMIC_Class, String determinantProperty, String determinantValue, String WMIC_Attributes) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
+	public static Map<String, String> getPropertiesAndTheirValuesWhere(String className, String determinantProperty,
+			String determinantValue, String properties)
+			throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 
-		String[] command = { "cmd", "/" + systemDriveLetter, "wmic path " + WMIC_Class + " where " + determinantProperty
-				+ "=" + "\"" + determinantValue + "\"" + " get " + WMIC_Attributes + " /format:list" };
+		String[] command = { "cmd", "/" + systemDriveLetter, "wmic path " + className + " where " + determinantProperty
+				+ "=" + "\"" + determinantValue + "\"" + " get " + properties + " /format:list" };
 		Process process = Runtime.getRuntime().exec(command);
 
 		int exitCode = process.waitFor();
@@ -207,9 +212,9 @@ public class WMIC {
 			errorCapture(process, exitCode);
 		}
 
-		return attributesAndTheirValues(process);
+		return propertiesAndTheirValuesParser(process);
 	}
-	
+
 	/**
 	 * 
 	 * @param process
@@ -218,7 +223,7 @@ public class WMIC {
 	 * @throws ShellException
 	 */
 	private static void errorCapture(Process process, int exitCode) throws IOException, ShellException {
-		try(BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+		try (BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
 			String errorLine;
 			StringBuilder errorLines = new StringBuilder();
 
@@ -226,22 +231,24 @@ public class WMIC {
 				if (!errorLine.isBlank() || !errorLine.isEmpty())
 					errorLines.append(errorLine);
 
-			throw new ShellException(errorLines.toString()+ "\nProcess Exited with code:" + exitCode + "\n");
+			throw new ShellException(errorLines.toString() + "\nProcess Exited with code:" + exitCode + "\n");
 		}
-		
+
 	}
-	
+
 	/**
-	 * Captures command prompt errors and throw them as ShellExceptions in case the process exit code is not 0
+	 * Captures command prompt errors and throw them as ShellExceptions in case the
+	 * process exit code is not 0
+	 * 
 	 * @param process
 	 * @return
 	 * @throws IOException
 	 */
-	private static List<String> attributeValues(Process process) throws IOException {
-		try(BufferedReader stream = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+	private static List<String> propertyValueParser(Process process) throws IOException {
+		try (BufferedReader stream = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
 			String currentLine = "";
 			String value = "";
-			
+
 			List<String> ID = new ArrayList<>();
 
 			while ((currentLine = stream.readLine()) != null)
@@ -257,15 +264,17 @@ public class WMIC {
 			return ID;
 		}
 	}
-	
+
 	/**
-	 * Returns a map of attribute names and their values as a key-value pair with attribute name being the key and the attribute value being the value
+	 * Returns a map of properties and their values as a key-value pair with
+	 * property name being the key and the attribute value being the value
+	 * 
 	 * @param process
 	 * @return
 	 * @throws IOException
 	 */
-	private static Map<String, String> attributesAndTheirValues(Process process) throws IOException {
-		try(BufferedReader stream = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+	private static Map<String, String> propertiesAndTheirValuesParser(Process process) throws IOException {
+		try (BufferedReader stream = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
 			String currentLine = "";
 			String key = "";
 			String value = "";

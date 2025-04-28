@@ -35,12 +35,12 @@ public class Win32_OperatingSystem {
 	 *
 	 * @return a {@link java.util.List} of OS Names found in the system
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getID(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getValue(String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getID(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getValue(String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -52,7 +52,7 @@ public class Win32_OperatingSystem {
 	 *                                   Thread.currentThread().interrupt();                                   
 	 */
 	public static List<String> getOSList() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
-		return WMIC.getID(classname, "Caption");
+		return WMIC.getValue(classname, "Caption");
 		}
 	
 	/**
@@ -62,12 +62,12 @@ public class Win32_OperatingSystem {
 	 * @return a {@link java.util.Map} of OS properties and their values mentioned
 	 *         in the class description
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -79,6 +79,6 @@ public class Win32_OperatingSystem {
 	 *                                   Thread.currentThread().interrupt();                        
 	 */
 	public static Map<String, String> getOSInfo(String OSName) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
-		return WMIC.getWhere(classname, "Caption", OSName, attributes);
+		return WMIC.getPropertiesAndTheirValuesWhere(classname, "Caption", OSName, attributes);
 	}
 }

@@ -26,19 +26,19 @@ public class Win32_Baseboard {
 	
 	/**
 	 * This method calls the
-	 * {@link com.ferruml.formatter.wmic.WMIC#get(String, String)} function and
+	 * {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValues(String, String)} function and
 	 * passes the WMI Class name and the properties whose values we want to fetch, as
 	 * parameters
 	 *
 	 * @return the Manufacturer, Model, Product, SerialNumber, Version details of
 	 *         your Motherboard in the form of a {@link java.util.Map}
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#get(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValues(String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#get(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValues(String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -50,6 +50,6 @@ public class Win32_Baseboard {
 	 *                                   Thread.currentThread().interrupt();
 	 */
 	public static Map<String,String> getMotherboard() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
-		return WMIC.get(classname, attributes);
+		return WMIC.getPropertiesAndTheirValues(classname, attributes);
 	}
 }

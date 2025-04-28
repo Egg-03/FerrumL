@@ -30,12 +30,12 @@ public class Win32_PortConnector {
 	 *
 	 * @return a {@link java.util.List} of port IDs
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getID(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getValue(String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getID(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getValue(String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -47,7 +47,7 @@ public class Win32_PortConnector {
 	 *                                   Thread.currentThread().interrupt();
 	 */
 	public static List<String> getBaseboardPortID() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException{
-		return WMIC.getID(classname, "Tag");
+		return WMIC.getValue(classname, "Tag");
 	}
 	
 	/**
@@ -57,12 +57,12 @@ public class Win32_PortConnector {
 	 * @return a {@link java.util.Map} of the properties and values mentioned in the
 	 *         class description for the given port ID
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                  {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                  {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -74,6 +74,6 @@ public class Win32_PortConnector {
 	 *                                   Thread.currentThread().interrupt();
 	 */
 	public static Map<String, String> getBaseboardPorts(String portID) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException{
-		return WMIC.getWhere(classname, "Tag", portID, attributes);
+		return WMIC.getPropertiesAndTheirValuesWhere(classname, "Tag", portID, attributes);
 	}
 }

@@ -1,11 +1,16 @@
 package com.ferruml.system.hardware;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.ferruml.exceptions.ShellException;
 import com.ferruml.formatter.wmic.WMIC;
@@ -23,7 +28,7 @@ public class HWID {
 	
 	/**
 	 * Uses
-	 * {@link com.ferrumx.formatter.wmic.WMIC#getIDWhere(String, String, String, String)}
+	 * {@link com.ferrumx.formatter.wmic.WMIC#getValueWhere(String, String, String, String)}
 	 * to fetch IDE and SCSI Interface Type Disk IDs
 	 *
 	 * @return a concatenated list of all IDE and SCSI drive IDs currently installed
@@ -40,25 +45,18 @@ public class HWID {
 	 *                                   Thread.currentThread().interrupt();
 	 */
 	private static String getDiskSerials() throws IndexOutOfBoundsException, IOException, ShellException, InterruptedException {
-		List<String> ideInterface = WMIC.getIDWhere("Win32_DiskDrive", "InterfaceType", "IDE", "SerialNumber");
-		List<String> scsiInterface = WMIC.getIDWhere("Win32_DiskDrive", "InterfaceType", "SCSI", "SerialNumber");
+		// get IDE interface drive ids first
+		List<String> allDiskDriveIds = WMIC.getValueWhere("Win32_DiskDrive", "InterfaceType", "IDE", "SerialNumber");
+		// add SCSI interface drive ids to the list
+		allDiskDriveIds.addAll(WMIC.getValueWhere("Win32_DiskDrive", "InterfaceType", "SCSI", "SerialNumber"));
 		
-		StringBuilder ideDrives = new StringBuilder("");
-		StringBuilder scsiDrives = new StringBuilder("");
-		
-		for(String ide:ideInterface)
-			ideDrives.append(ide);
-		
-		for(String scsi:scsiInterface)
-			scsiDrives.append(scsi);
-		
-		return ideDrives.toString()+scsiDrives.toString();
+		return StringUtils.join(allDiskDriveIds, null);
 	}
 	
 	/**
-	 * Uses {@link java.util.concurrent.ExecutorService} to spawn four threads with
+	 * Uses {@link java.util.concurrent.ExecutorService} to spawn threads as required with
 	 * each thread calling the
-	 * {@link com.ferruml.formatter.wmic.WMIC#get(String, String)} directly or
+	 * {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValues(String, String)} directly or
 	 * through the Win32 Classes to get specific parts of HWID which is then
 	 * ultimately combined to form the final ID
 	 *
@@ -70,24 +68,24 @@ public class HWID {
 	 * @throws InterruptedException when any of the threads get interrupted
 	 */
 	public static String getHardwareID() throws ExecutionException, InterruptedException {
-		String cpuName = "";
-		String cpuId = "";
-		String motherBoardName = "";
-		String driveId = "";
+		
+		List<String> id = new ArrayList<>();
 		
 		try (ExecutorService EXEC = Executors.newFixedThreadPool(4);){
-			Future<String> cpuNameTask = EXEC.submit(()-> WMIC.get("Win32_Processor", "Name").get("Name"));
-			Future<String> cpuIdTask = EXEC.submit(()-> WMIC.get("Win32_Processor", "ProcessorId").get("ProcessorId"));
-			Future<String> motherBoardNameTask = EXEC.submit(()-> WMIC.get("Win32_BaseBoard", "Product").get("Product"));
+			
+			Future<String> cpuIdTask = EXEC.submit(()-> StringUtils.join(WMIC.getValue("Win32_Processor", "ProcessorID"), null));
+			Future<String> motherboardIdTask = EXEC.submit(()-> StringUtils.join(WMIC.getValue("Win32_Baseboard", "SerialNumber"), null));
 			Future<String> driveIdTask = EXEC.submit(HWID::getDiskSerials);
 			
-			cpuName = cpuNameTask.get();
-			cpuId = cpuIdTask.get();
-			motherBoardName = motherBoardNameTask.get();
-			driveId = driveIdTask.get();
+			id.add(cpuIdTask.get());
+			id.add(motherboardIdTask.get());
+			id.add(driveIdTask.get());
+			
+			id.removeIf(s -> s == null || StringUtils.isBlank(s));
+			
 			}
 		
-		return cpuName+"/"+cpuId+"/"+motherBoardName+"/"+driveId;
+		return DigestUtils.sha256Hex(StringUtils.join(id, null).getBytes(StandardCharsets.UTF_8)).toUpperCase();
 	}
 }
 

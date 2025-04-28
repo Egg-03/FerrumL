@@ -32,12 +32,12 @@ public class Win32_Processor{
 	 *
 	 * @return a {@link java.util.List} of CPU IDs
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getID(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getValue(String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getID(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getValue(String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -49,7 +49,7 @@ public class Win32_Processor{
 	 *                                   Thread.currentThread().interrupt();
 	 */
 	public static List<String> getProcessorList() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
-		return WMIC.getID(alias, precedent);
+		return WMIC.getValue(alias, precedent);
 	}
 	
 	/**
@@ -59,12 +59,12 @@ public class Win32_Processor{
 	 * @return a {@link java.util.Map} of CPU properties and their values mentioned
 	 *         in the class description
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -77,7 +77,7 @@ public class Win32_Processor{
 	 */
 	public static Map<String, String> getCurrentProcessor(String currentProcessorID) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 		String attributes = "Name, NumberOfCores, NumberOfLogicalProcessors, ThreadCount, Manufacturer, AddressWidth, L2CacheSize, L3CacheSize, MaxClockSpeed, ExtClock, SocketDesignation, Version, Caption, Family, Stepping, VirtualizationFirmwareEnabled, ProcessorID";
-		return WMIC.getWhere(alias, precedent, currentProcessorID, attributes);
+		return WMIC.getPropertiesAndTheirValuesWhere(alias, precedent, currentProcessorID, attributes);
 	}
 }
 

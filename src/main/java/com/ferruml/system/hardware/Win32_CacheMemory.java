@@ -28,12 +28,12 @@ public class Win32_CacheMemory {
 	 * This method returns the Cache Memory IDs of all the CPUs installed in the system
 	 * @return a {@link java.util.List} of cacheIDs for all the CPUs
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getID(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getValue(String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getID(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getValue(String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -46,7 +46,7 @@ public class Win32_CacheMemory {
 	 */
 	public static List<String> getCacheID() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 		String attribute = "DeviceID";
-		return WMIC.getID(classname, attribute);
+		return WMIC.getValue(classname, attribute);
 	}
 	
 	/**
@@ -58,12 +58,12 @@ public class Win32_CacheMemory {
 	 * @return a particular level of cache memory details of a particular CPU at a
 	 *         time
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -76,6 +76,6 @@ public class Win32_CacheMemory {
 	 */
 	public static Map<String, String> getCPUCache(String currentCacheID) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
 		String attributes = "DeviceID, Purpose, InstalledSize, Associativity";
-		return WMIC.getWhere(classname, "DeviceID", currentCacheID, attributes);
+		return WMIC.getPropertiesAndTheirValuesWhere(classname, "DeviceID", currentCacheID, attributes);
 	}
 }

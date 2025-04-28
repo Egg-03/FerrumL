@@ -32,12 +32,12 @@ public class Win32_VideoController {
 	 *
 	 * @return a {@link java.util.List} of GPU IDs
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getID(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getValue(String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getID(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getValue(String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -49,7 +49,7 @@ public class Win32_VideoController {
 	 *                                   Thread.currentThread().interrupt();
 	 */
 	public static List<String> getGPUID() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException{
-		return WMIC.getID(classname, "DeviceID");
+		return WMIC.getValue(classname, "DeviceID");
 	}
 	
 	/**
@@ -59,12 +59,12 @@ public class Win32_VideoController {
 	 * @return a {@link java.util.Map} of GPU properties mentioned in the class
 	 *         description
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -76,6 +76,6 @@ public class Win32_VideoController {
 	 *                                   Thread.currentThread().interrupt();
 	 */
 	public static Map<String, String> getGPU(String gpuID) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException{
-		return WMIC.getWhere(classname, "DeviceID", gpuID, attributes);
+		return WMIC.getPropertiesAndTheirValuesWhere(classname, "DeviceID", gpuID, attributes);
 	}
 }

@@ -30,12 +30,12 @@ public class Win32_SoundDevice {
 	 *
 	 * @return a {@link java.util.List} of Audio Device IDs
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getID(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getValue(String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getID(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getValue(String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -47,7 +47,7 @@ public class Win32_SoundDevice {
 	 *                                   Thread.currentThread().interrupt();
 	 */
 	public static List<String> getSoundDeviceID() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
-		return WMIC.getID(classname, "Caption"); //fallback to Caption since DeviceID does not work
+		return WMIC.getValue(classname, "Caption"); //fallback to Caption since DeviceID does not work
 	}
 	
 	/**
@@ -57,12 +57,12 @@ public class Win32_SoundDevice {
 	 * @return a {@link java.util.Map} of Audio Driver/Device properties mentioned
 	 *         in the class description
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -74,6 +74,6 @@ public class Win32_SoundDevice {
 	 *                                   Thread.currentThread().interrupt();
 	 */
 	public static Map<String, String> getCurrentAudioDevice(String deviceID) throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
-		return WMIC.getWhere(classname, "Caption", deviceID, attributes);
+		return WMIC.getPropertiesAndTheirValuesWhere(classname, "Caption", deviceID, attributes);
 	}
 }

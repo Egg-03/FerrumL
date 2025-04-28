@@ -29,12 +29,12 @@ public class Win32_TimeZone {
 	 * @return a {@link java.util.Map} of Time-zone properties and values mentioned
 	 *         in the class description
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#get(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValues(String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#get(String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValues(String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -46,6 +46,6 @@ public class Win32_TimeZone {
 	 *                                   Thread.currentThread().interrupt();                                  
 	 */
 	public static Map<String, String> getOSTimeZone() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
-		return WMIC.get(classname, attributes);
+		return WMIC.getPropertiesAndTheirValues(classname, attributes);
 	}
 }

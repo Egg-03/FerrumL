@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.egg-03</groupId>
   <artifactId>ferrum-l</artifactId>
-  <version>1.3.4</version>
+  <version>1.3.5</version>
   <name>FerrumL</name>
   <description>Ferrum Legacy for Windows 7 and Vista</description>
   <url>https://github.com/Egg-03/FerrumL</url>
@@ -37,6 +37,18 @@
   	<sonar.exclusions>src/test/java/**/*, pom.xml</sonar.exclusions>
   </properties>
   <dependencies>
+  	<dependency>
+    	<groupId>org.apache.commons</groupId>
+    	<artifactId>commons-lang3</artifactId>
+    	<version>3.17.0</version>
+    	<scope>compile</scope>
+	</dependency>
+	<dependency>
+    	<groupId>commons-codec</groupId>
+    	<artifactId>commons-codec</artifactId>
+    	<version>1.18.0</version>
+    	<scope>compile</scope>
+	</dependency>
   	<dependency>
   		<groupId>org.tinylog</groupId>
   		<artifactId>tinylog-api</artifactId>

@@ -28,18 +28,18 @@ public class Win32_BIOS {
 	/**
 	 * Fetches Primary BIOS Information (If your motherboard has multiple BIOSes,
 	 * the Main BIOS information will always be fetched). Internally calls
-	 * {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 * {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 * with the parameters being (class_name, "PrimaryBIOS", "True", attributes);
 	 *
 	 * @return a {@link java.util.Map} containing the properties and their values
 	 *         mentioned in the class description, as key-value pairs
 	 * @throws IOException               re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there are I/O Errors during streaming
 	 *                                   of data from and to Command Prompt and other
 	 *                                   generated files
 	 * @throws IndexOutOfBoundsException re-throws the exception thrown by
-	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getWhere(String, String, String, String)}
+	 *                                   {@link com.ferruml.formatter.wmic.WMIC#getPropertiesAndTheirValuesWhere(String, String, String, String)}
 	 *                                   when there is a parsing error of data
 	 *                                   fetched from Windows Command Prompt
 	 * @throws ShellException            if any internal command used in the
@@ -51,6 +51,6 @@ public class Win32_BIOS {
 	 *                                   Thread.currentThread().interrupt();
 	 */
 	public static Map<String, String> getPrimaryBIOS() throws IOException, IndexOutOfBoundsException, ShellException, InterruptedException {
-		return WMIC.getWhere(classname, "PrimaryBIOS", "true", attributes);
+		return WMIC.getPropertiesAndTheirValuesWhere(classname, "PrimaryBIOS", "true", attributes);
 	}
 }
